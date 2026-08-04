@@ -1,0 +1,9 @@
+{
+  "name": "Plan Nacional de Iluminación — Tablero público",
+  "short_name": "Iluminación",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#F7F8FB",
+  "theme_color": "#263B80",
+  "lang": "es-UY"
+}

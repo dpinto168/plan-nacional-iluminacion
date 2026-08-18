@@ -6,34 +6,29 @@
 <meta name="theme-color" content="#263B80">
 <title>Plan Nacional de Iluminación</title>
 <style>
-:root{--navy:#263B80;--teal:#2CA58D;--yellow:#F5DD6E;--bg:#F7F8FB;--text:#1B2340;--muted:#6B7394}*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Inter,Segoe UI,Arial,sans-serif;color:var(--text);display:grid;place-items:center;min-height:100vh}.box{width:min(560px,calc(100% - 32px));background:#fff;border:1px solid #E4E7F1;border-radius:20px;padding:28px;text-align:center;box-shadow:0 10px 30px rgba(38,59,128,.10)}.mark{width:54px;height:54px;margin:0 auto 16px;border-radius:50%;border:7px solid #E9ECF7;border-top-color:var(--teal);animation:s .8s linear infinite}h1{font-size:23px;color:var(--navy);margin:0 0 8px;text-transform:uppercase}p{color:var(--muted);font-size:13px;line-height:1.5;margin:0}.err{display:none;color:#9c3434;background:#fff2f2;border:1px solid #f0c2c2;padding:12px;border-radius:10px;margin-top:15px;font-size:12px}@keyframes s{to{transform:rotate(360deg)}}
+:root{--navy:#263B80;--teal:#2CA58D;--bg:#F7F8FB;--text:#1B2340;--muted:#6B7394}*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Inter,Segoe UI,Arial,sans-serif;color:var(--text);display:grid;place-items:center;min-height:100vh}.box{width:min(560px,calc(100% - 32px));background:#fff;border:1px solid #E4E7F1;border-radius:20px;padding:28px;text-align:center;box-shadow:0 10px 30px rgba(38,59,128,.10)}.mark{width:54px;height:54px;margin:0 auto 16px;border-radius:50%;border:7px solid #E9ECF7;border-top-color:var(--teal);animation:s .8s linear infinite}h1{font-size:23px;color:var(--navy);margin:0 0 8px;text-transform:uppercase}p{color:var(--muted);font-size:13px;line-height:1.5;margin:0}.err{display:none;color:#9c3434;background:#fff2f2;border:1px solid #f0c2c2;padding:12px;border-radius:10px;margin-top:15px;font-size:12px}@keyframes s{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
-<div class="box">
-  <div class="mark" id="spinner"></div>
-  <h1>Plan Nacional de Iluminación</h1>
-  <p id="msg">Cargando tablero público…</p>
-  <div class="err" id="err"></div>
-</div>
+<div class="box"><div class="mark" id="spinner"></div><h1>Plan Nacional de Iluminación</h1><p id="msg">Cargando tablero público…</p><div class="err" id="err"></div></div>
 <script>
 (async()=>{
-  try{
-    if(!('DecompressionStream' in window)) throw new Error('El navegador necesita una versión más reciente para abrir el tablero.');
-    const files=['payload/v5-01.b64','payload/v5-02.b64','payload/v5-03.b64'];
-    const parts=await Promise.all(files.map(f=>fetch(f,{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('No se pudo cargar '+f);return r.text()})));
-    const b64=parts.join('').replace(/\s/g,'');
-    const bin=atob(b64);
-    const bytes=new Uint8Array(bin.length);
-    for(let i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);
-    const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
-    const html=await new Response(stream).text();
-    document.open();document.write(html);document.close();
-  }catch(e){
-    document.getElementById('spinner').style.display='none';
-    document.getElementById('msg').textContent='No fue posible cargar el tablero.';
-    const el=document.getElementById('err');el.style.display='block';el.textContent=e.message||String(e);
-  }
+ try{
+  if(!('DecompressionStream' in window)) throw new Error('El navegador necesita una versión más reciente para abrir el tablero.');
+  const files=['payload/public-v9-01.b64','payload/public-v9-02.b64','payload/public-v9-03.b64','payload/public-v9-04.b64','payload/public-v9-05.b64'];
+  const parts=await Promise.all(files.map(f=>fetch(f+'?v=9',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('No se pudo cargar '+f);return r.text()})));
+  const b64=parts.join('').replace(/\s/g,'');
+  const bin=atob(b64);
+  const bytes=new Uint8Array(bin.length);
+  for(let i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);
+  const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
+  const html=await new Response(stream).text();
+  document.open();document.write(html);document.close();
+ }catch(e){
+  document.getElementById('spinner').style.display='none';
+  document.getElementById('msg').textContent='No fue posible cargar el tablero.';
+  const el=document.getElementById('err');el.style.display='block';el.textContent=e.message||String(e);
+ }
 })();
 </script>
 </body>

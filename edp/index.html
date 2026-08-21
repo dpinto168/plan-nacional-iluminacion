@@ -312,11 +312,10 @@
   #view-inicio>#dashboardCustomIndicators{display:none!important}
   #view-inicio.active{
     display:grid;
-    grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(300px,1.08fr);
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr);
     grid-template-areas:
-      "state actions requirements"
-      "activities indicators requirements"
-      "documents claims requirements";
+      "state indicators"
+      "requirements actions";
     gap:18px;
     align-items:stretch;
   }
@@ -324,11 +323,10 @@
   #view-inicio>.home-primary>.card:nth-child(1){grid-area:state}
   #view-inicio>.home-primary>.card:nth-child(2){grid-area:actions}
   #view-inicio>.home-primary>.card:nth-child(3){grid-area:requirements}
-  #view-inicio>.home-secondary>.card:nth-child(1){grid-area:activities}
+  #view-inicio>.home-secondary>.card:nth-child(1),
+  #view-inicio>.home-secondary>.card:nth-child(3),
+  #view-inicio>.home-bottom{display:none!important}
   #view-inicio>.home-secondary>.card:nth-child(2){grid-area:indicators}
-  #view-inicio>.home-secondary>.card:nth-child(3){display:none!important}
-  #view-inicio>.home-bottom>.card:nth-child(1){grid-area:documents}
-  #view-inicio>.home-bottom>.card:nth-child(2){grid-area:claims}
   #view-inicio .dashboard-link-card{cursor:pointer;min-width:0;padding-bottom:16px}
   #view-inicio .dashboard-link-card:focus-visible{outline:3px solid rgba(15,166,184,.32);outline-offset:3px}
   #view-inicio .dashboard-link-card:hover{box-shadow:0 12px 32px rgba(27,41,84,.09);border-color:#C8D6DB}
@@ -351,10 +349,10 @@
   #view-inicio .requirement-empty{margin:18px 0 4px;padding:18px 12px;text-align:center;color:var(--text-600);background:#F7FAFA;border-radius:6px;font-size:12px}
   #view-inicio .dashboard-link-card[data-dashboard-view="requisitos"]:first-child .card-head a{visibility:hidden}
   @media(max-width:1180px){
-    #view-inicio.active{grid-template-columns:1fr 1fr;grid-template-areas:"state actions" "requirements requirements" "activities indicators" "documents claims"}
+    #view-inicio.active{grid-template-columns:1fr 1fr;grid-template-areas:"state indicators" "requirements actions"}
   }
   @media(max-width:760px){
-    #view-inicio.active{grid-template-columns:1fr;grid-template-areas:"state" "actions" "requirements" "activities" "indicators" "documents" "claims"}
+    #view-inicio.active{grid-template-columns:1fr;grid-template-areas:"state" "indicators" "requirements" "actions"}
   }
   @media(max-width:560px){.indicator-graphic{align-items:flex-start;gap:15px}.indicator-ring.large{width:120px;height:120px}.category-chart{gap:5px}.category-bar-label{font-size:8px}}
   .dashboard-indicators-head{margin:0 0 18px}.dashboard-indicators-head h2{margin:0;color:var(--navy-900);font-size:22px}.dashboard-indicators-head p{margin:5px 0 0;color:var(--text-600);font-size:12px}
@@ -426,8 +424,6 @@
       <a class="menu-item active" data-view="inicio"><span class="ic">🏠</span>Inicio</a>
       <a class="menu-item" data-view="requisitos"><span class="ic">📋</span>Requisitos</a>
       <a class="menu-item" data-view="capacitaciones"><span class="ic">🎓</span>Capacitaciones</a>
-      <a class="menu-item" data-view="documentos"><span class="ic">📄</span>Documentos</a>
-      <a class="menu-item" data-view="calendario"><span class="ic">📅</span>Calendario</a>
       <a class="menu-item" data-view="incidentes"><span class="ic">🪧</span>Reclamos de cartelería</a>
       <a class="menu-item" data-view="indicadores"><span class="ic">📊</span>Indicadores</a>
       <a class="menu-item" data-view="mapa"><span class="ic">📍</span>Mapa nacional</a>
@@ -947,7 +943,7 @@ const AUTH_SESSION_HOURS = 8;
 const AUTH_REPOSITORY_MODE = 'local';
 const ROLE_PERMISSIONS = {
   'Administrador SND':['read','write','manage_users','manage_clubs','manage_policy','settings'],
-  'Administrador de club':['read','write','manage_users'],
+  'Administrador de club':['read','write'],
   'Referente de cumplimiento':['read','write'],
   'Consulta (solo lectura)':['read']
 };

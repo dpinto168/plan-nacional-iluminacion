@@ -312,11 +312,10 @@
   #view-inicio>#dashboardCustomIndicators{display:none!important}
   #view-inicio.active{
     display:grid;
-    grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(300px,1.08fr);
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr);
     grid-template-areas:
-      "state actions requirements"
-      "activities indicators requirements"
-      "documents claims requirements";
+      "state indicators"
+      "requirements actions";
     gap:18px;
     align-items:stretch;
   }
@@ -324,11 +323,10 @@
   #view-inicio>.home-primary>.card:nth-child(1){grid-area:state}
   #view-inicio>.home-primary>.card:nth-child(2){grid-area:actions}
   #view-inicio>.home-primary>.card:nth-child(3){grid-area:requirements}
-  #view-inicio>.home-secondary>.card:nth-child(1){grid-area:activities}
+  #view-inicio>.home-secondary>.card:nth-child(1),
+  #view-inicio>.home-secondary>.card:nth-child(3),
+  #view-inicio>.home-bottom{display:none!important}
   #view-inicio>.home-secondary>.card:nth-child(2){grid-area:indicators}
-  #view-inicio>.home-secondary>.card:nth-child(3){display:none!important}
-  #view-inicio>.home-bottom>.card:nth-child(1){grid-area:documents}
-  #view-inicio>.home-bottom>.card:nth-child(2){grid-area:claims}
   #view-inicio .dashboard-link-card{cursor:pointer;min-width:0;padding-bottom:16px}
   #view-inicio .dashboard-link-card:focus-visible{outline:3px solid rgba(15,166,184,.32);outline-offset:3px}
   #view-inicio .dashboard-link-card:hover{box-shadow:0 12px 32px rgba(27,41,84,.09);border-color:#C8D6DB}
@@ -343,18 +341,26 @@
   .indicator-graphic{display:flex;align-items:center;gap:24px;min-height:162px;padding:8px 4px 14px}
   .indicator-graphic-copy{min-width:0}.indicator-graphic-copy b{display:block;color:var(--navy-900);font-size:16px}.indicator-graphic-copy span{display:block;margin-top:7px;color:var(--text-600);font-size:12px;line-height:1.5}
   .category-chart{display:grid;grid-template-columns:repeat(5,minmax(48px,1fr));align-items:end;gap:10px;min-height:205px;padding:14px 4px 0;border-bottom:1px solid var(--line)}
-  .category-bar{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:190px;min-width:0}
+  .category-bar{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:190px;min-width:0;border:0;background:transparent;padding:0;cursor:pointer}
+  .category-bar:hover .category-bar-fill,.category-bar:focus-visible .category-bar-fill{filter:brightness(.86)}
+  .category-bar:focus-visible{outline:3px solid rgba(15,166,184,.28);outline-offset:3px;border-radius:6px}
   .category-bar-value{margin-bottom:6px;color:var(--navy-900);font-size:11px;font-weight:900}
   .category-bar-track{display:flex;align-items:flex-end;width:min(42px,80%);height:126px;overflow:hidden;border-radius:5px 5px 0 0;background:#E8EEF0}
-  .category-bar-fill{width:100%;height:var(--bar);min-height:2px;background:linear-gradient(180deg,var(--teal-500),var(--teal-700));transition:height .25s ease}
+  .category-bar-fill{width:100%;height:var(--bar);min-height:2px;background:linear-gradient(180deg,var(--teal-500),var(--teal-700));transition:height .25s ease,filter .15s ease}
   .category-bar-label{display:block;width:100%;min-height:32px;margin-top:7px;overflow:hidden;color:var(--text-600);font-size:9px;font-weight:700;line-height:1.2;text-align:center}
+  .indicator-category-lines{margin-top:16px}
+  .indicator-category-line{display:block;width:100%;margin:0;padding:10px 2px;border:0;border-bottom:1px solid var(--line);background:transparent;text-align:left;cursor:pointer}
+  .indicator-category-line:last-child{border-bottom:0}
+  .indicator-category-line:hover,.indicator-category-line:focus-visible{background:#F7FAFA}
+  .indicator-category-line:focus-visible{outline:3px solid rgba(15,166,184,.24);outline-offset:2px;border-radius:5px}
+  .indicator-category-line .comp-row{margin:0;pointer-events:none}
   #view-inicio .requirement-empty{margin:18px 0 4px;padding:18px 12px;text-align:center;color:var(--text-600);background:#F7FAFA;border-radius:6px;font-size:12px}
   #view-inicio .dashboard-link-card[data-dashboard-view="requisitos"]:first-child .card-head a{visibility:hidden}
   @media(max-width:1180px){
-    #view-inicio.active{grid-template-columns:1fr 1fr;grid-template-areas:"state actions" "requirements requirements" "activities indicators" "documents claims"}
+    #view-inicio.active{grid-template-columns:1fr 1fr;grid-template-areas:"state indicators" "requirements actions"}
   }
   @media(max-width:760px){
-    #view-inicio.active{grid-template-columns:1fr;grid-template-areas:"state" "actions" "requirements" "activities" "indicators" "documents" "claims"}
+    #view-inicio.active{grid-template-columns:1fr;grid-template-areas:"state" "indicators" "requirements" "actions"}
   }
   @media(max-width:560px){.indicator-graphic{align-items:flex-start;gap:15px}.indicator-ring.large{width:120px;height:120px}.category-chart{gap:5px}.category-bar-label{font-size:8px}}
   .dashboard-indicators-head{margin:0 0 18px}.dashboard-indicators-head h2{margin:0;color:var(--navy-900);font-size:22px}.dashboard-indicators-head p{margin:5px 0 0;color:var(--text-600);font-size:12px}
@@ -426,8 +432,6 @@
       <a class="menu-item active" data-view="inicio"><span class="ic">🏠</span>Inicio</a>
       <a class="menu-item" data-view="requisitos"><span class="ic">📋</span>Requisitos</a>
       <a class="menu-item" data-view="capacitaciones"><span class="ic">🎓</span>Capacitaciones</a>
-      <a class="menu-item" data-view="documentos"><span class="ic">📄</span>Documentos</a>
-      <a class="menu-item" data-view="calendario"><span class="ic">📅</span>Calendario</a>
       <a class="menu-item" data-view="incidentes"><span class="ic">🪧</span>Reclamos de cartelería</a>
       <a class="menu-item" data-view="indicadores"><span class="ic">📊</span>Indicadores</a>
       <a class="menu-item" data-view="mapa"><span class="ic">📍</span>Mapa nacional</a>
@@ -683,10 +687,7 @@
           <div class="card">
             <div class="card-head"><h3>Comparativa por categoría</h3></div>
             <div class="category-chart" id="indicatorCategoryChart" aria-label="Gráfico de cumplimiento por categoría"></div>
-            <div class="comp-row"><div class="comp-top"><span>Documentación</span><span>90%</span></div><div class="comp-track"><div class="comp-fill" style="width:90%"></div></div></div>
-            <div class="comp-row"><div class="comp-top"><span>Capacitaciones</span><span>80%</span></div><div class="comp-track"><div class="comp-fill" style="width:80%"></div></div></div>
-            <div class="comp-row"><div class="comp-top"><span>Infraestructura</span><span>75%</span></div><div class="comp-track"><div class="comp-fill" style="width:75%"></div></div></div>
-            <div class="comp-row"><div class="comp-top"><span>Protección</span><span>95%</span></div><div class="comp-track"><div class="comp-fill" style="width:95%"></div></div></div>
+            <div class="indicator-category-lines" id="indicatorCategoryLines" aria-label="Cumplimiento por las secciones de Requisitos"></div>
           </div>
         </div>
         <div class="card" style="margin-top:18px;">
@@ -947,7 +948,7 @@ const AUTH_SESSION_HOURS = 8;
 const AUTH_REPOSITORY_MODE = 'local';
 const ROLE_PERMISSIONS = {
   'Administrador SND':['read','write','manage_users','manage_clubs','manage_policy','settings'],
-  'Administrador de club':['read','write','manage_users'],
+  'Administrador de club':['read','write'],
   'Referente de cumplimiento':['read','write'],
   'Consulta (solo lectura)':['read']
 };
@@ -1277,6 +1278,17 @@ function goTo(view){
   window.scrollTo(0,0);
   if(view==='mapa')requestAnimationFrame(()=>drawMap('mapFull'));
 }
+function goToRequirementSection(section){
+  goTo('requisitos');
+  requestAnimationFrame(()=>{
+    const sections=[...document.querySelectorAll('#requisitosAccordion .manual-section')];
+    const target=sections.find(item=>item.dataset.manualSection===section);
+    if(!target)return;
+    sections.forEach(item=>item.open=item===target);
+    target.scrollIntoView({behavior:'smooth',block:'start'});
+    target.querySelector('summary')?.focus({preventScroll:true});
+  });
+}
 document.querySelectorAll('.menu-item[data-view]:not(#logoutBtn)').forEach(item=>item.addEventListener('click',event=>{event.preventDefault();goTo(item.dataset.view);}));
 document.querySelectorAll('.dashboard-link-card').forEach(card=>{
   const open=()=>goTo(card.dataset.dashboardView);
@@ -1442,20 +1454,20 @@ function renderRequirements(club){
     {field:'item',render:(r,a)=>manualInput(r.item,'text',a+' maxlength="220"')},{field:'status',render:(r,a)=>manualSelect(r.status,inclusionStatus,a)},{field:'date',render:(r,a)=>manualInput(r.date,'date',a)}
   ],'inclusion');
   container.innerHTML=`
-    <details class="manual-section" open><summary>I. Seguimiento</summary><div class="manual-section-body">${manualBlock('Designación de referente de cumplimiento','Primer cuadro de seguimiento del Manual.',['Acción','Chequeo de cumplimiento'],trackingRows)}</div></details>
-    <details class="manual-section"><summary>II. Formación de referentes</summary><div class="manual-section-body">${manualBlock('Formación de responsables de categoría','Agregá una fila por persona y categoría.',['Nombre','Categoría a cargo','Certificación ONFI','Licencia C','Sin formación','Fecha de formación','Acciones'],staffRows,'trainingStaff')}</div></details>
-    <details class="manual-section"><summary>III. Protección y prácticas cuidadas</summary><div class="manual-section-body">
+    <details class="manual-section" data-manual-section="I. Seguimiento" open><summary tabindex="-1">I. Seguimiento</summary><div class="manual-section-body">${manualBlock('Designación de referente de cumplimiento','Primer cuadro de seguimiento del Manual.',['Acción','Chequeo de cumplimiento'],trackingRows)}</div></details>
+    <details class="manual-section" data-manual-section="II. Formación de referentes"><summary tabindex="-1">II. Formación de referentes</summary><div class="manual-section-body">${manualBlock('Formación de responsables de categoría','Agregá una fila por persona y categoría.',['Nombre','Categoría a cargo','Certificación ONFI','Licencia C','Sin formación','Fecha de formación','Acciones'],staffRows,'trainingStaff')}</div></details>
+    <details class="manual-section" data-manual-section="III. Protección y prácticas cuidadas"><summary tabindex="-1">III. Protección y prácticas cuidadas</summary><div class="manual-section-body">
       ${manualBlock('Certificados obligatorios por ley','Agregá una fila por cargo o persona.',['Cargo','Nombre','Buena conducta','Antecedentes judiciales','No inscripción en Registro de violadores','Acciones'],certificateRows,'certificates')}
       ${manualBlock('Talleres ONFI','Meta mínima orientativa: un taller anual.',['Fecha del taller','Participantes (N.º)','Temas tratados','Acciones'],workshopRows,'workshops')}
       ${manualBlock('Prácticas cuidadas','Chequeo institucional.',['Práctica','Estado'],practiceRows)}
     </div></details>
-    <details class="manual-section"><summary>IV. Infraestructura y mantenimiento</summary><div class="manual-section-body">
+    <details class="manual-section" data-manual-section="IV. Infraestructura y mantenimiento"><summary tabindex="-1">IV. Infraestructura y mantenimiento</summary><div class="manual-section-body">
       ${manualBlock('Infraestructura y afines','Comparación de situación inicial y a los doce meses.',['Ítem','Situación inicial','Situación a los 12 meses','Acciones'],infrastructureRows,'infrastructure')}
       ${manualBlock('Mantenimiento básico','La tabla se amplía con nuevas filas.',['Tipo de mantenimiento','Frecuencia','Responsable designado','Acciones'],basicRows,'basicMaintenance')}
       ${manualBlock('Mantenimiento correctivo','Registrá cada intervención realizada en una nueva fila.',['Sector en que se realizó','Fecha','Detalle de lo realizado','Acciones'],correctiveRows,'correctiveMaintenance')}
       ${manualBlock('Mantenimiento preventivo','Los meses permanecen en una única tabla y se pueden sumar mantenimientos adicionales.',['Tipo','Sector','Mes / período','Responsable designado','Acciones'],preventiveRows,'preventiveMaintenance')}
     </div></details>
-    <details class="manual-section"><summary>V. Género e inclusión</summary><div class="manual-section-body">
+    <details class="manual-section" data-manual-section="V. Género e inclusión"><summary tabindex="-1">V. Género e inclusión</summary><div class="manual-section-body">
       ${manualBlock('Equipos de niñas','Registro por categoría.',['Categoría','Situación','Cantidad de jugadoras','Acciones'],girlsRows,'girlsTeams')}
       ${manualBlock('Inclusión','Estado de accesibilidad e infraestructura universal.',['Ítem','Estado','Fecha de logro','Acciones'],inclusionRows,'inclusion')}
     </div></details>
@@ -1533,9 +1545,9 @@ function renderIndicators(club){
   if(global){labels[0].textContent='Promedio nacional';labels[1].textContent='Clubes con 80% o más';labels[2].textContent='Departamentos representados';values[0].textContent=national+'%';values[1].textContent=db.clubs.filter(item=>compliance(item)>=80).length;values[2].textContent=new Set(db.clubs.map(item=>item.department)).size;}
   else{const pct=compliance(club),leagueClubs=db.clubs.filter(c=>(c.league||'')===(club.league||'')&&(club.league||'')!=='');const leagueBase=leagueClubs.length?leagueClubs:db.clubs.filter(c=>c.department===club.department),leaguePct=Math.round(leagueBase.reduce((s,c)=>s+compliance(c),0)/(leagueBase.length||1));labels[0].textContent='Mi club';labels[1].textContent='Promedio de la liga';labels[2].textContent='Promedio nacional';values[0].textContent=pct+'%';values[1].textContent=leaguePct+'%';values[2].textContent=national+'%';}
   const primaryValue=global?national:compliance(club),ring=document.getElementById('indicatorMainRing'),ringValue=document.getElementById('indicatorMainRingValue');if(ring&&ringValue){ring.style.setProperty('--value',primaryValue+'%');ring.style.setProperty('--ring-color',primaryValue>=80?'var(--teal-500)':primaryValue>=50?'var(--amber)':'var(--red)');ringValue.textContent=primaryValue+'%';ring.setAttribute('aria-label',`${global?'Promedio nacional':'Cumplimiento de '+club.name}: ${primaryValue}%`);document.getElementById('indicatorMainRingTitle').textContent=global?'Promedio nacional':'Cumplimiento de '+club.name;document.getElementById('indicatorMainRingText').textContent=primaryValue>=80?'Nivel de cumplimiento destacado.':primaryValue>=50?'El cumplimiento se encuentra en proceso.':'Hay requisitos que requieren atención prioritaria.';}
-  const scopes=global?db.clubs:[club],manualItems=scopes.flatMap(item=>dashboardRequirementsForClub(item)),categoryDefinitions=[['Seguimiento','I. Seguimiento'],['Formación','II. Formación de referentes'],['Protección','III. Protección y prácticas cuidadas'],['Infraestructura','IV. Infraestructura y mantenimiento'],['Género e inclusión','V. Género e inclusión']],categoryValues=categoryDefinitions.map(([label,section])=>{const items=manualItems.filter(item=>item.section===section),completed=items.filter(item=>item.state==='ok').length;return {label,value:items.length?Math.round(completed/items.length*100):0};}),chart=document.getElementById('indicatorCategoryChart');if(chart){chart.innerHTML=categoryValues.map(item=>`<div class="category-bar" title="${escapeHtml(item.label)}: ${item.value}%"><span class="category-bar-value">${item.value}%</span><div class="category-bar-track"><div class="category-bar-fill" style="--bar:${item.value}%"></div></div><span class="category-bar-label">${escapeHtml(item.label)}</span></div>`).join('');chart.setAttribute('aria-label',categoryValues.map(item=>`${item.label}: ${item.value}%`).join('. '));}
-  const groups=[['Seguimiento','Documentación'],['Formación','Capacitaciones'],['Infraestructura','Infraestructura'],['Protección','Protección']];
-  const allRequirements=global?db.clubs.flatMap(item=>item.requirements||[]):club.requirements,rows=view.querySelectorAll('.comp-row');groups.forEach(([cat,label],i)=>{const reqs=allRequirements.filter(r=>r.cat===cat),totalWeight=reqs.reduce((sum,r)=>sum+(Number(r.weight)||1),0),points=reqs.reduce((sum,r)=>sum+(Number(r.weight)||1)*(r.estado==='ok'?1:r.estado==='warn'?0.5:0),0),val=totalWeight?Math.round(points/totalWeight*100):0;if(rows[i]){rows[i].querySelector('.comp-top span:first-child').textContent=label;rows[i].querySelector('.comp-top span:last-child').textContent=val+'%';rows[i].querySelector('.comp-fill').style.width=val+'%';}});
+  const scopes=global?db.clubs:[club],manualItems=scopes.flatMap(item=>dashboardRequirementsForClub(item)),categoryDefinitions=[['Seguimiento','I. Seguimiento'],['Formación','II. Formación de referentes'],['Protección','III. Protección y prácticas cuidadas'],['Infraestructura','IV. Infraestructura y mantenimiento'],['Género e inclusión','V. Género e inclusión']],categoryValues=categoryDefinitions.map(([label,section])=>{const items=manualItems.filter(item=>item.section===section),completed=items.filter(item=>item.state==='ok').length;return {label,section,value:items.length?Math.round(completed/items.length*100):0};}),chart=document.getElementById('indicatorCategoryChart'),lines=document.getElementById('indicatorCategoryLines');
+  if(chart){chart.innerHTML=categoryValues.map(item=>`<button type="button" class="category-bar" data-requirement-section="${escapeHtml(item.section)}" title="Abrir ${escapeHtml(item.section)} en Requisitos"><span class="category-bar-value">${item.value}%</span><span class="category-bar-track"><span class="category-bar-fill" style="--bar:${item.value}%"></span></span><span class="category-bar-label">${escapeHtml(item.label)}</span></button>`).join('');chart.setAttribute('aria-label',categoryValues.map(item=>`${item.label}: ${item.value}%`).join('. '));chart.querySelectorAll('[data-requirement-section]').forEach(button=>button.addEventListener('click',()=>goToRequirementSection(button.dataset.requirementSection)));}
+  if(lines){lines.innerHTML=categoryValues.map(item=>`<button type="button" class="indicator-category-line" data-requirement-section="${escapeHtml(item.section)}" title="Abrir ${escapeHtml(item.section)} en Requisitos"><span class="comp-row"><span class="comp-top"><span>${escapeHtml(item.label)}</span><span>${item.value}%</span></span><span class="comp-track"><span class="comp-fill" style="width:${item.value}%"></span></span></span></button>`).join('');lines.querySelectorAll('[data-requirement-section]').forEach(button=>button.addEventListener('click',()=>goToRequirementSection(button.dataset.requirementSection)));}
 }
 function indicatorCollection(){const club=selectedClub();return club?club.customIndicators:db.globalIndicators;}
 function renderCustomIndicators(){

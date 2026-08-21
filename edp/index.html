@@ -1350,7 +1350,7 @@ function dashboardRequirementsForClub(club){
   m.practices.forEach(row=>add(sectionProtection,row.practice,yesState(row.status),statusMeta(yesState(row.status))[0]));
 
   m.infrastructure.forEach(row=>add(sectionInfrastructure,row.item||'Ítem de infraestructura',row.after12==='yes'?'ok':row.after12==='pending'?'warn':'bad',row.after12==='pending'?'Pendiente de verificar':row.after12==='yes'?'Tiene':'No tiene'));
-  m.basicMaintenance.forEach(row=>{const complete=!!row.type&&!!row.frequency&&row.responsible==='yes',started=!!row.type||!!row.frequency;add(sectionInfrastructure,row.type||'Mantenimiento básico',complete?'ok':started?'warn':'bad',row.frequency||'Sin frecuencia');});
+  m.basicMaintenance.forEach(row=>{const typeComplete=!!row.type&&(row.type!=='Otro'||!!row.typeDetail),frequencyComplete=!!row.frequency&&(row.frequency!=='Otro'||!!row.frequencyDetail),complete=typeComplete&&frequencyComplete&&row.responsible==='yes',started=!!row.type||!!row.typeDetail||!!row.frequency||!!row.frequencyDetail;add(sectionInfrastructure,row.type==='Otro'?(row.typeDetail||'Otro mantenimiento'):(row.type||'Mantenimiento básico'),complete?'ok':started?'warn':'bad',row.frequency==='Otro'?(row.frequencyDetail||'Otra frecuencia'):(row.frequency||'Sin frecuencia'));});
   m.preventiveMaintenance.forEach(row=>{const complete=!!row.type&&!!row.sector&&!!row.month&&row.responsible==='yes',started=!!row.type||!!row.sector||!!row.month;add(sectionInfrastructure,row.type||'Mantenimiento preventivo',complete?'ok':started?'warn':'bad',[row.sector,row.month].filter(Boolean).join(' · ')||'Sin detalle');});
 
   m.girlsTeams.forEach(row=>add(sectionInclusion,`Equipo de niñas ${row.category||'sin categoría'}`,yesState(row.status),row.players?`${row.players} jugadoras`:statusMeta(yesState(row.status))[0]));
@@ -1437,12 +1437,12 @@ function renderRequirements(club){
   ],'workshops');
   let manualDataNormalized=false;
   m.practices.forEach(row=>{
-    if(row.id==='practice-5')row.practice='El club ha instalado como práctica que los adultos no queden a solas con un niño sin supervisión visible.';
-    if(row.id==='practice-6')row.practice='El club ha instalado como práctica que los niños y adultos utilicen vestuarios por separado.';
+    if(row.id==='practice-5'&&row.practice!=='El club ha instalado como práctica que los adultos no queden a solas con un niño sin supervisión visible.'){row.practice='El club ha instalado como práctica que los adultos no queden a solas con un niño sin supervisión visible.';manualDataNormalized=true;}
+    if(row.id==='practice-6'&&row.practice!=='El club ha instalado como práctica que los niños y adultos utilicen vestuarios por separado.'){row.practice='El club ha instalado como práctica que los niños y adultos utilicen vestuarios por separado.';manualDataNormalized=true;}
     if(['practice-1','practice-2'].includes(row.id)&&!['yes','no'].includes(row.status)){row.status='no';manualDataNormalized=true;}
   });
   m.basicMaintenance.forEach(row=>{
-    row.typeDetail??='';row.frequencyDetail??='';
+    if(row.typeDetail==null){row.typeDetail='';manualDataNormalized=true;}if(row.frequencyDetail==null){row.frequencyDetail='';manualDataNormalized=true;}
     if(!maintenanceTypes.some(([value])=>value===row.type)){row.typeDetail=row.type||'';row.type='Otro';manualDataNormalized=true;}
     if(!frequencyOptions.some(([value])=>value===row.frequency)){row.frequencyDetail=row.frequency||'';row.frequency='Otro';manualDataNormalized=true;}
   });

@@ -579,8 +579,8 @@
             <p class="card-sub" style="font-weight:700;color:var(--navy-900);margin-bottom:4px;">Comparativa</p>
             <div class="comp-row"><div class="comp-top"><span>Seguimiento</span><span>0%</span></div><div class="comp-track"><div class="comp-fill" style="width:0%"></div></div></div>
             <div class="comp-row"><div class="comp-top"><span>Formación</span><span>0%</span></div><div class="comp-track"><div class="comp-fill" style="width:0%"></div></div></div>
-            <div class="comp-row"><div class="comp-top"><span>Género e inclusión</span><span>0%</span></div><div class="comp-track"><div class="comp-fill" style="width:0%"></div></div></div>
             <div class="comp-row"><div class="comp-top"><span>Protección</span><span>0%</span></div><div class="comp-track"><div class="comp-fill" style="width:0%"></div></div></div>
+            <div class="comp-row"><div class="comp-top"><span>Género e inclusión</span><span>0%</span></div><div class="comp-track"><div class="comp-fill" style="width:0%"></div></div></div>
             <div class="comp-row"><div class="comp-top"><span>Infraestructura</span><span>0%</span></div><div class="comp-track"><div class="comp-fill" style="width:0%"></div></div></div>
           </div>
 
@@ -1009,8 +1009,8 @@ function makeManualTracking(variant=0){
       {id:'practice-2',practice:'Todos los referentes han adherido al código de conducta.',status:'process'},
       {id:'practice-3',practice:'Existe un procedimiento claro e informado para comunicar situaciones de violencia hacia niñas, niños o adolescentes.',status:'no'},
       {id:'practice-4',practice:'Existe un protocolo ante lesiones o accidentes claro e informado.',status:'process'},
-      {id:'practice-5',practice:'Los adultos no quedan a solas con un niño sin supervisión visible.',status:'yes'},
-      {id:'practice-6',practice:'Niños y adultos utilizan vestuarios por separado.',status:'yes'}
+      {id:'practice-5',practice:'El club ha instalado como práctica que los adultos no queden a solas con un niño sin supervisión visible.',status:'yes'},
+      {id:'practice-6',practice:'El club ha instalado como práctica que los niños y adultos utilicen vestuarios por separado.',status:'yes'}
     ],
     infrastructure:[
       'Cancha con cerco de contención y/o protección','Banco locatario y banco visitante','Salón multiuso','Vestuarios para niños','Vestuarios para niñas','Baños para infancias','Baños para adultos','Iluminación de cancha','Red wifi','Cartelería informativa de prevención y protección'
@@ -1336,7 +1336,7 @@ function dashboardRequirementsForClub(club){
   const m=club.manualTracking??=makeManualTracking(),items=[];
   const add=(section,name,state,detail)=>items.push({section,name,state,detail,clubId:club.id,clubName:club.name});
   const yesState=value=>value==='yes'?'ok':value==='process'||value==='pending'?'warn':'bad';
-  const sectionFollowup='I. Seguimiento',sectionTraining='II. Formación de referentes',sectionInclusion='III. Género e inclusión',sectionProtection='IV. Protección y prácticas cuidadas',sectionInfrastructure='V. Infraestructura y mantenimiento';
+  const sectionFollowup='I. Seguimiento',sectionTraining='II. Formación de referentes',sectionProtection='III. Protección y prácticas cuidadas',sectionInclusion='IV. Género e inclusión',sectionInfrastructure='V. Infraestructura y mantenimiento';
 
   add(sectionFollowup,'Referente de cumplimiento designado',yesState(m.followup.designated),m.followup.person||statusMeta(yesState(m.followup.designated))[0]);
 
@@ -1351,7 +1351,6 @@ function dashboardRequirementsForClub(club){
 
   m.infrastructure.forEach(row=>add(sectionInfrastructure,row.item||'Ítem de infraestructura',row.after12==='yes'?'ok':row.after12==='pending'?'warn':'bad',row.after12==='pending'?'Pendiente de verificar':row.after12==='yes'?'Tiene':'No tiene'));
   m.basicMaintenance.forEach(row=>{const complete=!!row.type&&!!row.frequency&&row.responsible==='yes',started=!!row.type||!!row.frequency;add(sectionInfrastructure,row.type||'Mantenimiento básico',complete?'ok':started?'warn':'bad',row.frequency||'Sin frecuencia');});
-  m.correctiveMaintenance.forEach(row=>{const complete=!!row.sector&&!!row.date&&!!row.detail,started=!!row.sector||!!row.date||!!row.detail;add(sectionInfrastructure,'Mantenimiento correctivo',complete?'ok':started?'warn':'bad',row.sector||'Sin sector');});
   m.preventiveMaintenance.forEach(row=>{const complete=!!row.type&&!!row.sector&&!!row.month&&row.responsible==='yes',started=!!row.type||!!row.sector||!!row.month;add(sectionInfrastructure,row.type||'Mantenimiento preventivo',complete?'ok':started?'warn':'bad',[row.sector,row.month].filter(Boolean).join(' · ')||'Sin detalle');});
 
   m.girlsTeams.forEach(row=>add(sectionInclusion,`Equipo de niñas ${row.category||'sin categoría'}`,yesState(row.status),row.players?`${row.players} jugadoras`:statusMeta(yesState(row.status))[0]));
@@ -1395,7 +1394,7 @@ function renderDashboard(club){
 
   const activitiesCard=cards[3],activityHead=activitiesCard.querySelector('.card-head');activitiesCard.querySelectorAll('.date-item,.card-sub').forEach(x=>x.remove());const activities=calendar.filter(item=>item.status!=='completada'&&item.status!=='cancelada').sort((a,b)=>a.date.localeCompare(b.date)).slice(0,3);activityHead.insertAdjacentHTML('afterend',activities.length?activities.map(item=>{const date=new Date(item.date+'T12:00:00'),day=String(date.getDate()).padStart(2,'0'),month=date.toLocaleDateString('es-UY',{month:'short'}).replace('.',''),[label,css]=calendarStatus(item.status);return `<div class="date-item" onclick="goTo('calendario')"><div class="date-box"><b>${day}</b><span>${escapeHtml(month)}</span></div><div class="li-text"><b>${escapeHtml(item.title)}</b><span>${global?escapeHtml(item._clubName)+' · ':''}${escapeHtml(item.type)}</span></div><div class="pill ${css}">${label}</div></div>`;}).join(''):'<p class="card-sub">No hay actividades próximas.</p>');
 
-  const nationalPct=Math.round(db.clubs.reduce((sum,c)=>sum+compliance(c),0)/(db.clubs.length||1)),indicatorLabels=cards[4].querySelectorAll('.indicator-row span:nth-child(2)'),indicatorRows=cards[4].querySelectorAll('.indicator-row b');if(global){indicatorLabels[0].textContent='Promedio nacional';indicatorLabels[1].textContent='Clubes con 80% o más';indicatorLabels[2].textContent='Departamentos representados';indicatorRows[0].textContent=nationalPct+'%';indicatorRows[1].textContent=db.clubs.filter(item=>compliance(item)>=80).length;indicatorRows[2].textContent=new Set(db.clubs.map(item=>item.department)).size;}else{const leagueClubs=db.clubs.filter(c=>(c.league||'')===(club.league||'')&&(club.league||'')!=='');const leagueBase=leagueClubs.length?leagueClubs:db.clubs.filter(c=>c.department===club.department);const leaguePct=Math.round(leagueBase.reduce((sum,c)=>sum+compliance(c),0)/(leagueBase.length||1));indicatorLabels[0].textContent='Mi club';indicatorLabels[1].textContent='Promedio de la liga';indicatorLabels[2].textContent='Promedio nacional';indicatorRows[0].textContent=pct+'%';indicatorRows[1].textContent=leaguePct+'%';indicatorRows[2].textContent=nationalPct+'%';}const homeCategoryDefinitions=[['Seguimiento','I. Seguimiento'],['Formación','II. Formación de referentes'],['Género e inclusión','III. Género e inclusión'],['Protección','IV. Protección y prácticas cuidadas'],['Infraestructura','V. Infraestructura y mantenimiento']],homeCategoryValues=homeCategoryDefinitions.map(([label,section])=>{const items=dashboardRequirements.filter(item=>item.section===section),completed=items.filter(item=>item.state==='ok').length;return [label,items.length?Math.round(completed/items.length*100):0];}),compRows=cards[4].querySelectorAll('.comp-row');homeCategoryValues.forEach(([label,value],index)=>{const row=compRows[index];if(!row)return;row.querySelector('.comp-top span:first-child').textContent=label;row.querySelector('.comp-top span:last-child').textContent=value+'%';row.querySelector('.comp-fill').style.width=value+'%';});
+  const nationalPct=Math.round(db.clubs.reduce((sum,c)=>sum+compliance(c),0)/(db.clubs.length||1)),indicatorLabels=cards[4].querySelectorAll('.indicator-row span:nth-child(2)'),indicatorRows=cards[4].querySelectorAll('.indicator-row b');if(global){indicatorLabels[0].textContent='Promedio nacional';indicatorLabels[1].textContent='Clubes con 80% o más';indicatorLabels[2].textContent='Departamentos representados';indicatorRows[0].textContent=nationalPct+'%';indicatorRows[1].textContent=db.clubs.filter(item=>compliance(item)>=80).length;indicatorRows[2].textContent=new Set(db.clubs.map(item=>item.department)).size;}else{const leagueClubs=db.clubs.filter(c=>(c.league||'')===(club.league||'')&&(club.league||'')!=='');const leagueBase=leagueClubs.length?leagueClubs:db.clubs.filter(c=>c.department===club.department);const leaguePct=Math.round(leagueBase.reduce((sum,c)=>sum+compliance(c),0)/(leagueBase.length||1));indicatorLabels[0].textContent='Mi club';indicatorLabels[1].textContent='Promedio de la liga';indicatorLabels[2].textContent='Promedio nacional';indicatorRows[0].textContent=pct+'%';indicatorRows[1].textContent=leaguePct+'%';indicatorRows[2].textContent=nationalPct+'%';}const homeCategoryDefinitions=[['Seguimiento','I. Seguimiento'],['Formación','II. Formación de referentes'],['Protección','III. Protección y prácticas cuidadas'],['Género e inclusión','IV. Género e inclusión'],['Infraestructura','V. Infraestructura y mantenimiento']],homeCategoryValues=homeCategoryDefinitions.map(([label,section])=>{const items=dashboardRequirements.filter(item=>item.section===section),completed=items.filter(item=>item.state==='ok').length;return [label,items.length?Math.round(completed/items.length*100):0];}),compRows=cards[4].querySelectorAll('.comp-row');homeCategoryValues.forEach(([label,value],index)=>{const row=compRows[index];if(!row)return;row.querySelector('.comp-top span:first-child').textContent=label;row.querySelector('.comp-top span:last-child').textContent=value+'%';row.querySelector('.comp-fill').style.width=value+'%';});
 
   const mapCard=cards[5],mapHead=mapCard.querySelector('.card-head');mapCard.querySelector('.national-summary')?.remove();const allDocs=db.clubs.reduce((sum,c)=>sum+(c.documents||[]).length,0),allIncidents=db.clubs.reduce((sum,c)=>sum+(c.incidents||[]).length,0);mapHead.insertAdjacentHTML('afterend',`<p class="card-sub national-summary">${db.clubs.length} clubes · ${allDocs} documentos · ${allIncidents} incidentes registrados</p>`);
 
@@ -1413,18 +1412,19 @@ function manualBlock(title,help,headers,rows,collection=''){
   const add=collection?`<button class="btn-small" type="button" data-manual-add="${collection}">+ Agregar fila</button>`:'';
   return `<div class="manual-block"><div class="manual-block-head"><div><h4>${title}</h4>${help?`<p>${help}</p>`:''}</div>${add}</div><div class="manual-table-wrap"><table class="manual-entry-table"><thead><tr>${headers.map(item=>`<th>${item}</th>`).join('')}</tr></thead><tbody>${rows||`<tr><td class="manual-empty" colspan="${headers.length}">Todavía no hay registros. Usá “Agregar fila”.</td></tr>`}</tbody></table></div></div>`;
 }
-function manualArrayRows(items,columns,collection,removable=true){
-  return items.map(row=>`<tr>${columns.map(column=>`<td>${column.render(row,`data-manual-array="${collection}" data-row-id="${escapeHtml(row.id)}" data-field="${column.field}"`)}</td>`).join('')}<td class="row-actions">${removable?manualRowButton(collection,row.id):''}</td></tr>`).join('');
+function manualArrayRows(items,columns,collection,removable=true,showActions=true){
+  return items.map(row=>`<tr>${columns.map(column=>`<td>${column.render(row,`data-manual-array="${collection}" data-row-id="${escapeHtml(row.id)}" data-field="${column.field}"`)}</td>`).join('')}${showActions?`<td class="row-actions">${removable?manualRowButton(collection,row.id):''}</td>`:''}</tr>`).join('');
 }
 function renderRequirements(club){
   const container=document.getElementById('requisitosAccordion');if(!container)return;
   if(!club){
-    const rows=db.clubs.map(item=>{const tracking=item.manualTracking||makeManualTracking(),openClaims=(item.incidents||[]).filter(claim=>claim.status!=='cerrado').length;return `<tr><td><b>${escapeHtml(item.name)}</b></td><td>${escapeHtml(tracking.followup.person||'Sin designar')}</td><td>${tracking.trainingStaff.length}</td><td>${tracking.certificates.length}</td><td>${tracking.correctiveMaintenance.length+tracking.preventiveMaintenance.length}</td><td>${openClaims}</td></tr>`;}).join('');
+    const rows=db.clubs.map(item=>{const tracking=item.manualTracking||makeManualTracking(),openClaims=(item.incidents||[]).filter(claim=>claim.status!=='cerrado').length;return `<tr><td><b>${escapeHtml(item.name)}</b></td><td>${escapeHtml(tracking.followup.person||'Sin designar')}</td><td>${tracking.trainingStaff.length}</td><td>${tracking.certificates.length}</td><td>${tracking.basicMaintenance.length+tracking.preventiveMaintenance.length}</td><td>${openClaims}</td></tr>`;}).join('');
     container.innerHTML=`<div class="notice">Seleccioná un club en la barra superior para completar sus cuadros. Esta vista consolida la información cargada.</div><div class="manual-table-wrap" style="margin-top:14px;"><table class="manual-entry-table"><thead><tr><th>Club</th><th>Referente</th><th>Personas en formación</th><th>Cargos registrados</th><th>Mantenimientos</th><th>Reclamos abiertos</th></tr></thead><tbody>${rows}</tbody></table></div>`;
     return;
   }
   const m=club.manualTracking??=makeManualTracking();
   const yesNo=[['yes','Sí'],['no','No']],status3=[['yes','Sí'],['no','No'],['process','En proceso']],hasStatus=[['yes','Tiene'],['no','No tiene'],['pending','Pendiente de verificar']],inclusionStatus=[['achieved','Logrado'],['process','En proceso'],['not-planned','No proyectado aún']];
+  const maintenanceTypes=[['Limpieza de baños','Limpieza de baños'],['Limpieza de vestuarios','Limpieza de vestuarios'],['Limpieza de salón multiuso','Limpieza de salón multiuso'],['Limpieza de cancha y gradas','Limpieza de cancha y gradas'],['Otro','Otro']],frequencyOptions=[['Diaria','Diaria'],['Semanal','Semanal'],['Otro','Otro']],sectorOptions=[['','Seleccionar…'],['Cancha','Cancha'],['Cerco','Cerco'],['Vestuarios','Vestuarios'],['Salón','Salón'],['Baños','Baños'],['Gradas','Gradas']],monthOptions=[['','Seleccionar…'],...['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Setiembre','Octubre','Noviembre','Diciembre'].map(month=>[month,month])];
   const trackingRows=`<tr><td>Referente de cumplimiento designado</td><td>${manualSelect(m.followup.designated,status3,'data-manual-scalar="followup.designated"')}</td></tr><tr><td>Nombre de la persona designada</td><td>${manualInput(m.followup.person,'text','data-manual-scalar="followup.person" maxlength="160"')}</td></tr><tr><td>Fecha de la designación</td><td>${manualInput(m.followup.date,'date','data-manual-scalar="followup.date"')}</td></tr><tr><td>Vínculo con el club</td><td>${manualInput(m.followup.relationship,'text','data-manual-scalar="followup.relationship" maxlength="160"')}</td></tr>`;
   const staffRows=manualArrayRows(m.trainingStaff,[
     {field:'name',render:(r,a)=>manualInput(r.name,'text',a+' maxlength="140"')},{field:'category',render:(r,a)=>manualInput(r.category,'text',a+' maxlength="80"')},{field:'onfi',render:(r,a)=>manualSelect(r.onfi,yesNo,a)},{field:'licenseC',render:(r,a)=>manualSelect(r.licenseC,yesNo,a)},{field:'untrained',render:(r,a)=>manualSelect(r.untrained,yesNo,a)},{field:'date',render:(r,a)=>manualInput(r.date,'date',a)}
@@ -1435,22 +1435,28 @@ function renderRequirements(club){
   const workshopRows=manualArrayRows(m.workshops,[
     {field:'date',render:(r,a)=>manualInput(r.date,'date',a)},{field:'participants',render:(r,a)=>manualInput(r.participants,'number',a+' min="0"')},{field:'topics',render:(r,a)=>manualInput(r.topics,'text',a+' maxlength="240"')}
   ],'workshops');
-  let practicesNormalized=false;
-  m.practices.forEach(row=>{if(['practice-1','practice-2'].includes(row.id)&&!['yes','no'].includes(row.status)){row.status='no';practicesNormalized=true;}});
-  if(practicesNormalized)saveData();
+  let manualDataNormalized=false;
+  m.practices.forEach(row=>{
+    if(row.id==='practice-5')row.practice='El club ha instalado como práctica que los adultos no queden a solas con un niño sin supervisión visible.';
+    if(row.id==='practice-6')row.practice='El club ha instalado como práctica que los niños y adultos utilicen vestuarios por separado.';
+    if(['practice-1','practice-2'].includes(row.id)&&!['yes','no'].includes(row.status)){row.status='no';manualDataNormalized=true;}
+  });
+  m.basicMaintenance.forEach(row=>{
+    row.typeDetail??='';row.frequencyDetail??='';
+    if(!maintenanceTypes.some(([value])=>value===row.type)){row.typeDetail=row.type||'';row.type='Otro';manualDataNormalized=true;}
+    if(!frequencyOptions.some(([value])=>value===row.frequency)){row.frequencyDetail=row.frequency||'';row.frequency='Otro';manualDataNormalized=true;}
+  });
+  if(manualDataNormalized)saveData();
   const practiceRows=m.practices.map(row=>{const options=['practice-1','practice-2'].includes(row.id)?yesNo:status3;return `<tr><td>${escapeHtml(row.practice)}</td><td>${manualSelect(row.status,options,`data-manual-array="practices" data-row-id="${row.id}" data-field="status"`)}</td></tr>`;}).join('');
   const infrastructureRows=manualArrayRows(m.infrastructure,[
     {field:'item',render:(r,a)=>manualInput(r.item,'text',a+' maxlength="180"')},{field:'initial',render:(r,a)=>manualSelect(r.initial,hasStatus,a)},{field:'after12',render:(r,a)=>manualSelect(r.after12,hasStatus,a)}
-  ],'infrastructure',false);
+  ],'infrastructure',false,false);
   const basicRows=manualArrayRows(m.basicMaintenance,[
-    {field:'type',render:(r,a)=>manualInput(r.type,'text',a+' maxlength="160"')},{field:'frequency',render:(r,a)=>manualInput(r.frequency,'text',a+' maxlength="100"')},{field:'responsible',render:(r,a)=>manualSelect(r.responsible,yesNo,a)}
-  ],'basicMaintenance');
-  const correctiveRows=manualArrayRows(m.correctiveMaintenance,[
-    {field:'sector',render:(r,a)=>manualInput(r.sector,'text',a+' maxlength="120"')},{field:'date',render:(r,a)=>manualInput(r.date,'date',a)},{field:'detail',render:(r,a)=>manualInput(r.detail,'text',a+' maxlength="260"')}
-  ],'correctiveMaintenance');
+    {field:'type',render:(r,a)=>manualSelect(r.type,maintenanceTypes,a)},{field:'typeDetail',render:(r,a)=>manualInput(r.typeDetail,'text',a+' maxlength="160" placeholder="Completar si eligió Otro"')},{field:'frequency',render:(r,a)=>manualSelect(r.frequency,frequencyOptions,a)},{field:'frequencyDetail',render:(r,a)=>manualInput(r.frequencyDetail,'text',a+' maxlength="100" placeholder="Completar si eligió Otro"')},{field:'responsible',render:(r,a)=>manualSelect(r.responsible,yesNo,a)}
+  ],'basicMaintenance',false,false);
   const preventiveRows=manualArrayRows(m.preventiveMaintenance,[
-    {field:'type',render:(r,a)=>manualInput(r.type,'text',a+' maxlength="120"')},{field:'sector',render:(r,a)=>manualInput(r.sector,'text',a+' maxlength="140" placeholder="Cancha, cerco, vestuarios…"')},{field:'month',render:(r,a)=>manualInput(r.month,'text',a+' maxlength="40"')},{field:'responsible',render:(r,a)=>manualSelect(r.responsible,yesNo,a)}
-  ],'preventiveMaintenance');
+    {field:'type',render:(r,a)=>manualInput(r.type,'text',a+' maxlength="120"')},{field:'sector',render:(r,a)=>manualSelect(r.sector,sectorOptions,a)},{field:'month',render:(r,a)=>manualSelect(r.month,monthOptions,a)},{field:'responsible',render:(r,a)=>manualSelect(r.responsible,yesNo,a)}
+  ],'preventiveMaintenance',false,false);
   const girlsRows=manualArrayRows(m.girlsTeams,[
     {field:'category',render:(r,a)=>manualInput(r.category,'text',a+' maxlength="100"')},{field:'status',render:(r,a)=>manualSelect(r.status,status3,a)},{field:'players',render:(r,a)=>manualInput(r.players,'number',a+' min="0"')}
   ],'girlsTeams');
@@ -1460,20 +1466,19 @@ function renderRequirements(club){
   container.innerHTML=`
     <details class="manual-section" data-manual-section="I. Seguimiento" open><summary tabindex="-1">I. Seguimiento</summary><div class="manual-section-body">${manualBlock('Designación de referente de cumplimiento','Primer cuadro de seguimiento del Manual.',['Acción','Chequeo de cumplimiento'],trackingRows)}</div></details>
     <details class="manual-section" data-manual-section="II. Formación de referentes"><summary tabindex="-1">II. Formación de referentes</summary><div class="manual-section-body">${manualBlock('Formación de responsables de categoría','Agregá una fila por persona y categoría.',['Nombre','Categoría a cargo','Certificación ONFI','Licencia C','Sin formación','Fecha de formación','Acciones'],staffRows,'trainingStaff')}</div></details>
-    <details class="manual-section" data-manual-section="III. Género e inclusión"><summary tabindex="-1">III. Género e inclusión</summary><div class="manual-section-body">
-      ${manualBlock('Equipos de niñas','Registro por categoría.',['Categoría','Situación','Cantidad de jugadoras','Acciones'],girlsRows,'girlsTeams')}
-      ${manualBlock('Inclusión','Estado de accesibilidad e infraestructura universal.',['Ítem','Estado','Fecha de logro','Acciones'],inclusionRows,'inclusion')}
-    </div></details>
-    <details class="manual-section" data-manual-section="IV. Protección y prácticas cuidadas"><summary tabindex="-1">IV. Protección y prácticas cuidadas</summary><div class="manual-section-body">
+    <details class="manual-section" data-manual-section="III. Protección y prácticas cuidadas"><summary tabindex="-1">III. Protección y prácticas cuidadas</summary><div class="manual-section-body">
       ${manualBlock('Certificados obligatorios por ley','Agregá una fila por cargo o persona.',['Cargo','Nombre','Buena conducta','Antecedentes judiciales','No inscripción en Registro de violadores','Acciones'],certificateRows,'certificates')}
       ${manualBlock('Talleres ONFI','Meta mínima orientativa: un taller anual.',['Fecha del taller','Participantes (N.º)','Temas tratados','Acciones'],workshopRows,'workshops')}
       ${manualBlock('Prácticas cuidadas','Chequeo institucional.',['Práctica','Estado'],practiceRows)}
     </div></details>
+    <details class="manual-section" data-manual-section="IV. Género e inclusión"><summary tabindex="-1">IV. Género e inclusión</summary><div class="manual-section-body">
+      ${manualBlock('Equipos de niñas','Registro por categoría.',['Categoría','Situación','Cantidad de jugadoras','Acciones'],girlsRows,'girlsTeams')}
+      ${manualBlock('Inclusión','Estado de accesibilidad e infraestructura universal.',['Ítem','Estado','Fecha de logro','Acciones'],inclusionRows,'inclusion')}
+    </div></details>
     <details class="manual-section" data-manual-section="V. Infraestructura y mantenimiento"><summary tabindex="-1">V. Infraestructura y mantenimiento</summary><div class="manual-section-body">
-      ${manualBlock('Infraestructura y afines','Comparación de situación inicial y a los doce meses.',['Ítem','Situación inicial','Situación a los 12 meses','Acciones'],infrastructureRows,'infrastructure')}
-      ${manualBlock('Mantenimiento básico','La tabla se amplía con nuevas filas.',['Tipo de mantenimiento','Frecuencia','Responsable designado','Acciones'],basicRows,'basicMaintenance')}
-      ${manualBlock('Mantenimiento correctivo','Registrá cada intervención realizada en una nueva fila.',['Sector en que se realizó','Fecha','Detalle de lo realizado','Acciones'],correctiveRows,'correctiveMaintenance')}
-      ${manualBlock('Mantenimiento preventivo','Los meses permanecen en una única tabla y se pueden sumar mantenimientos adicionales.',['Tipo','Sector','Mes / período','Responsable designado','Acciones'],preventiveRows,'preventiveMaintenance')}
+      ${manualBlock('Infraestructura y afines','Comparación de situación inicial y a los doce meses.',['Ítem','Situación inicial','Situación a los 12 meses'],infrastructureRows,'infrastructure')}
+      ${manualBlock('Mantenimiento básico','La tabla se amplía con nuevas filas.',['Tipo de mantenimiento','Especificar tipo','Frecuencia','Especificar frecuencia','Responsable designado'],basicRows,'basicMaintenance')}
+      ${manualBlock('Mantenimiento preventivo','Los meses permanecen en una única tabla y se pueden sumar mantenimientos adicionales.',['Tipo','Sector','Mes / período','Responsable designado'],preventiveRows,'preventiveMaintenance')}
     </div></details>
     <p class="manual-save-note">Los cambios de los cuadros se guardan automáticamente para ${escapeHtml(club.name)}.</p>`;
   if(!can('write'))container.querySelectorAll('input,select,button').forEach(control=>control.disabled=true);
@@ -1501,7 +1506,7 @@ function restoreManualView(view){
 function addManualRow(club,collection,view){
   if(!can('write'))return;const templates={
     trainingStaff:{name:'',category:'',onfi:'no',licenseC:'no',untrained:'yes',date:''},certificates:{role:'',name:'',goodConduct:'no',judicial:'no',registry:'no'},workshops:{date:'',participants:'',topics:''},
-    infrastructure:{item:'',initial:'pending',after12:'pending'},basicMaintenance:{type:'',frequency:'',responsible:'no'},correctiveMaintenance:{sector:'',date:'',detail:''},preventiveMaintenance:{type:'Preventivo mensual',sector:'',month:'',responsible:'no'},
+    infrastructure:{item:'',initial:'pending',after12:'pending'},basicMaintenance:{type:'Otro',typeDetail:'',frequency:'Otro',frequencyDetail:'',responsible:'no'},correctiveMaintenance:{sector:'',date:'',detail:''},preventiveMaintenance:{type:'Preventivo mensual',sector:'',month:'',responsible:'no'},
     girlsTeams:{category:'',status:'process',players:''},inclusion:{item:'',status:'not-planned',date:''}
   };if(!templates[collection])return;club.manualTracking[collection].push({id:uid('manual'),...templates[collection]});saveData();renderRequirements(club);restoreManualView(view);
 }
@@ -1549,7 +1554,7 @@ function renderIndicators(club){
   if(global){labels[0].textContent='Promedio nacional';labels[1].textContent='Clubes con 80% o más';labels[2].textContent='Departamentos representados';values[0].textContent=national+'%';values[1].textContent=db.clubs.filter(item=>compliance(item)>=80).length;values[2].textContent=new Set(db.clubs.map(item=>item.department)).size;}
   else{const pct=compliance(club),leagueClubs=db.clubs.filter(c=>(c.league||'')===(club.league||'')&&(club.league||'')!=='');const leagueBase=leagueClubs.length?leagueClubs:db.clubs.filter(c=>c.department===club.department),leaguePct=Math.round(leagueBase.reduce((s,c)=>s+compliance(c),0)/(leagueBase.length||1));labels[0].textContent='Mi club';labels[1].textContent='Promedio de la liga';labels[2].textContent='Promedio nacional';values[0].textContent=pct+'%';values[1].textContent=leaguePct+'%';values[2].textContent=national+'%';}
   const primaryValue=global?national:compliance(club),ring=document.getElementById('indicatorMainRing'),ringValue=document.getElementById('indicatorMainRingValue');if(ring&&ringValue){ring.style.setProperty('--value',primaryValue+'%');ring.style.setProperty('--ring-color',primaryValue>=80?'var(--teal-500)':primaryValue>=50?'var(--amber)':'var(--red)');ringValue.textContent=primaryValue+'%';ring.setAttribute('aria-label',`${global?'Promedio nacional':'Cumplimiento de '+club.name}: ${primaryValue}%`);document.getElementById('indicatorMainRingTitle').textContent=global?'Promedio nacional':'Cumplimiento de '+club.name;document.getElementById('indicatorMainRingText').textContent=primaryValue>=80?'Nivel de cumplimiento destacado.':primaryValue>=50?'El cumplimiento se encuentra en proceso.':'Hay requisitos que requieren atención prioritaria.';}
-  const scopes=global?db.clubs:[club],manualItems=scopes.flatMap(item=>dashboardRequirementsForClub(item)),categoryDefinitions=[['Seguimiento','I. Seguimiento'],['Formación','II. Formación de referentes'],['Género e inclusión','III. Género e inclusión'],['Protección','IV. Protección y prácticas cuidadas'],['Infraestructura','V. Infraestructura y mantenimiento']],categoryValues=categoryDefinitions.map(([label,section])=>{const items=manualItems.filter(item=>item.section===section),completed=items.filter(item=>item.state==='ok').length;return {label,section,value:items.length?Math.round(completed/items.length*100):0};}),chart=document.getElementById('indicatorCategoryChart'),lines=document.getElementById('indicatorCategoryLines');
+  const scopes=global?db.clubs:[club],manualItems=scopes.flatMap(item=>dashboardRequirementsForClub(item)),categoryDefinitions=[['Seguimiento','I. Seguimiento'],['Formación','II. Formación de referentes'],['Protección','III. Protección y prácticas cuidadas'],['Género e inclusión','IV. Género e inclusión'],['Infraestructura','V. Infraestructura y mantenimiento']],categoryValues=categoryDefinitions.map(([label,section])=>{const items=manualItems.filter(item=>item.section===section),completed=items.filter(item=>item.state==='ok').length;return {label,section,value:items.length?Math.round(completed/items.length*100):0};}),chart=document.getElementById('indicatorCategoryChart'),lines=document.getElementById('indicatorCategoryLines');
   if(chart){chart.innerHTML=categoryValues.map(item=>`<button type="button" class="category-bar" data-requirement-section="${escapeHtml(item.section)}" title="Abrir ${escapeHtml(item.section)} en Cumplimiento del Manual EDP"><span class="category-bar-value">${item.value}%</span><span class="category-bar-track"><span class="category-bar-fill" style="--bar:${item.value}%"></span></span><span class="category-bar-label">${escapeHtml(item.label)}</span></button>`).join('');chart.setAttribute('aria-label',categoryValues.map(item=>`${item.label}: ${item.value}%`).join('. '));chart.querySelectorAll('[data-requirement-section]').forEach(button=>button.addEventListener('click',()=>goToRequirementSection(button.dataset.requirementSection)));}
   if(lines){lines.innerHTML=categoryValues.map(item=>`<button type="button" class="indicator-category-line" data-requirement-section="${escapeHtml(item.section)}" title="Abrir ${escapeHtml(item.section)} en Cumplimiento del Manual EDP"><span class="comp-row"><span class="comp-top"><span>${escapeHtml(item.label)}</span><span>${item.value}%</span></span><span class="comp-track"><span class="comp-fill" style="width:${item.value}%"></span></span></span></button>`).join('');lines.querySelectorAll('[data-requirement-section]').forEach(button=>button.addEventListener('click',()=>goToRequirementSection(button.dataset.requirementSection)));}
 }

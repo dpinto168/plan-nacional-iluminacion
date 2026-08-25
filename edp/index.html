@@ -315,14 +315,14 @@
     grid-template-columns:minmax(0,1fr) minmax(0,1fr);
     grid-template-areas:
       "state indicators"
-      "requirements actions";
+      "actions actions";
     gap:18px;
     align-items:stretch;
   }
   #view-inicio>.grid3,#view-inicio>.grid2{display:contents!important}
   #view-inicio>.home-primary>.card:nth-child(1){grid-area:state}
   #view-inicio>.home-primary>.card:nth-child(2){grid-area:actions}
-  #view-inicio>.home-primary>.card:nth-child(3){grid-area:requirements}
+  #view-inicio>.home-primary>.card:nth-child(3){display:none!important}
   #view-inicio>.home-secondary>.card:nth-child(1),
   #view-inicio>.home-secondary>.card:nth-child(3),
   #view-inicio>.home-bottom{display:none!important}
@@ -437,7 +437,8 @@
     </div>
     <nav class="menu" id="menu">
       <a class="menu-item active" data-view="inicio"><span class="ic">🏠</span>Inicio</a>
-      <a class="menu-item" data-view="requisitos"><span class="ic">📋</span>Cumplimiento del Manual EDP</a>
+      <a class="menu-item" data-view="requisitos"><span class="ic">📋</span>Estándares de cumplimiento</a>
+      <a class="menu-item hidden" data-view="capacitaciones"><span class="ic">🎓</span>Capacitación</a>
       <a class="menu-item" data-view="incidentes"><span class="ic">🪧</span>Reclamos de cartelería</a>
       <a class="menu-item" data-view="indicadores"><span class="ic">📊</span>Indicadores</a>
       <a class="menu-item" data-view="mapa"><span class="ic">📍</span>Mapa nacional</a>
@@ -512,8 +513,8 @@
         <div class="grid4 hidden" id="dashboardCustomIndicators"></div>
         <div class="grid3 home-primary">
           <!-- Estado general -->
-          <div class="card dashboard-link-card" data-dashboard-view="requisitos" role="link" tabindex="0" aria-label="Abrir Cumplimiento del Manual EDP desde Estado general">
-            <div class="card-head"><h3>Estado general</h3><a href="#" onclick="goTo('requisitos');return false;">Ver requisitos</a></div>
+          <div class="card dashboard-link-card" data-dashboard-view="requisitos" role="link" tabindex="0" aria-label="Abrir Estándares de cumplimiento desde Estado general">
+            <div class="card-head"><h3>Estado general</h3><a href="#" onclick="goTo('requisitos');return false;">Ver estándares</a></div>
             <div class="status-hero">
               <div class="badge-shield">🛡️</div>
               <div>
@@ -547,8 +548,8 @@
           </div>
 
           <!-- Requisitos -->
-          <div class="card dashboard-link-card" data-dashboard-view="requisitos" role="link" tabindex="0" aria-label="Abrir Cumplimiento del Manual EDP">
-            <div class="card-head"><h3>Cumplimiento del Manual EDP</h3><a href="#" onclick="goTo('requisitos');return false;">Ver todos</a></div>
+          <div class="card dashboard-link-card" data-dashboard-view="requisitos" role="link" tabindex="0" aria-label="Abrir Estándares de cumplimiento">
+            <div class="card-head"><h3>Estándares de cumplimiento</h3><a href="#" onclick="goTo('requisitos');return false;">Ver todos</a></div>
             <div class="tabs" id="dashboardRequirementTabs">
               <button class="tab active" type="button" data-requirement-filter="all">Todos (10)</button>
               <button class="tab" type="button" data-requirement-filter="completed">Cumplidos (8)</button>
@@ -626,7 +627,7 @@
       <!-- ===================== VISTA: REQUISITOS ===================== -->
       <section class="view" id="view-requisitos">
         <div class="card">
-          <div class="card-head"><h3>Cumplimiento del Manual EDP</h3><button class="btn-primary btn-inline hidden" id="newRequirementBtn">+ Agregar requisito</button></div>
+          <div class="card-head"><h3>Estándares de cumplimiento</h3><button class="btn-primary btn-inline hidden" id="newRequirementBtn">+ Agregar estándar</button></div>
           <p class="manual-intro">Los cuadros respetan las secciones y campos del Manual de seguimiento. Los cambios se guardan automáticamente en este navegador. En tablas de cargos, talleres y mantenimientos podés agregar nuevas filas sin crear tablas separadas.</p>
           <div id="requisitosAccordion"></div>
         </div>
@@ -635,9 +636,10 @@
       <!-- ===================== VISTA: CAPACITACIONES ===================== -->
       <section class="view" id="view-capacitaciones">
         <div class="card">
-          <div class="card-head"><h3>Formación de referentes por categoría (Manual EDP — Sección II)</h3><button class="btn-primary btn-inline" id="newTrainingBtn">+ Agregar capacitación</button></div>
+          <div class="card-head"><h3>Capacitaciones dictadas por la SND</h3><button class="btn-primary btn-inline" id="newTrainingBtn">+ Agregar capacitación</button></div>
+          <p class="manual-intro">Registro administrado exclusivamente por la SND. Agregá una fila por capacitación, con la fecha, la cantidad de participantes y los temas tratados.</p>
           <table class="data-table">
-            <thead><tr><th>Nombre</th><th>Categoría</th><th>Tipo</th><th>Fecha</th><th>Estado</th><th>Acciones</th></tr></thead>
+            <thead><tr><th>Capacitación</th><th>Fecha</th><th>Participantes (N.º)</th><th>Temas tratados</th><th>Acciones</th></tr></thead>
             <tbody id="trainingsTableBody"></tbody>
           </table>
         </div>
@@ -747,7 +749,7 @@
           </div>
           <div class="card">
             <div class="card-head"><h3>Cómo usar esta versión</h3></div>
-            <p class="section-help">Los cambios se guardan automáticamente en este navegador. Podés cambiar de club desde el selector superior y modificar el estado de cada requisito desde la sección <b>Cumplimiento del Manual EDP</b>.</p>
+            <p class="section-help">Los cambios se guardan automáticamente en este navegador. Podés cambiar de club desde el selector superior y modificar el estado de cada requisito desde la sección <b>Estándares de cumplimiento</b>.</p>
             <p class="section-help">Usá <b>Exportar respaldo</b> para descargar todos los datos en JSON. Luego podés recuperarlos con <b>Importar respaldo</b>.</p>
             <div class="notice warn">Esta versión sirve para validar funcionamiento y diseño. No debe publicarse con datos reales ni contraseñas reales.</div>
           </div>
@@ -807,16 +809,38 @@
   </div>
 </div>
 
+<div class="modal-backdrop hidden" id="staffFormationModal" role="dialog" aria-modal="true" aria-labelledby="staffFormationModalTitle">
+  <div class="modal">
+    <div class="modal-head"><h3 id="staffFormationModalTitle">Editar ficha de vigencia de formación</h3><button class="modal-close" data-close-modal="staffFormationModal" aria-label="Cerrar">×</button></div>
+    <form id="staffFormationForm">
+      <input type="hidden" id="staffFormationRowId">
+      <input type="hidden" id="staffFormationClubId">
+      <div class="form-grid">
+        <div class="field"><label for="staffFormationName">Nombre *</label><input id="staffFormationName" required maxlength="140"></div>
+        <div class="field"><label for="staffFormationCategory">Categoría a cargo *</label><input id="staffFormationCategory" required maxlength="80"></div>
+        <div class="field"><label for="staffFormationEmail">Mail</label><input id="staffFormationEmail" type="email" maxlength="160"></div>
+        <div class="field"><label for="staffFormationCedula">Cédula</label><input id="staffFormationCedula" maxlength="20" inputmode="numeric"></div>
+        <div class="field"><label for="staffFormationPhone">Celular</label><input id="staffFormationPhone" type="tel" maxlength="30"></div>
+        <div class="field"><label for="staffFormationOnfi">Certificación ONFI</label><select id="staffFormationOnfi"><option value="yes">Sí</option><option value="no">No</option></select></div>
+        <div class="field"><label for="staffFormationLicense">Licencia C</label><select id="staffFormationLicense"><option value="yes">Sí</option><option value="no">No</option></select></div>
+        <div class="field"><label for="staffFormationValid">Formación</label><select id="staffFormationValid"><option value="yes">Sí</option><option value="no">No</option></select></div>
+        <div class="field"><label for="staffFormationDate">Fecha de formación</label><input id="staffFormationDate" type="date"></div>
+      </div>
+      <div class="form-actions"><button class="btn-primary btn-inline" type="submit">Guardar ficha</button><button class="btn-secondary" type="button" data-close-modal="staffFormationModal">Cancelar</button></div>
+    </form>
+  </div>
+</div>
+
 <div class="modal-backdrop hidden" id="trainingModal" role="dialog" aria-modal="true" aria-labelledby="trainingModalTitle">
   <div class="modal">
     <div class="modal-head"><h3 id="trainingModalTitle">Nueva capacitación</h3><button class="modal-close" data-close-modal="trainingModal" aria-label="Cerrar">×</button></div>
     <form id="trainingForm">
       <input type="hidden" id="trainingId">
       <div class="form-grid">
-        <div class="field"><label for="trainingType">Nombre de la capacitación *</label><input id="trainingType" required maxlength="140" placeholder="Ej.: Certificación ONFI"></div>
+        <div class="field"><label for="trainingType">Nombre de la capacitación *</label><input id="trainingType" required maxlength="140"></div>
         <div class="field"><label for="trainingDate">Fecha *</label><input id="trainingDate" type="date" required></div>
-        <div class="field"><label for="trainingProvider">Quién dictó</label><input id="trainingProvider" maxlength="120" placeholder="Ej.: ONFI"></div>
-        <div class="field"><label for="trainingStatus">Estado</label><select id="trainingStatus"><option value="completada">Completada</option><option value="programada">Programada</option><option value="pendiente">Pendiente</option></select></div>
+        <div class="field"><label for="trainingParticipants">Participantes (N.º) *</label><input id="trainingParticipants" type="number" min="0" required></div>
+        <div class="field" style="grid-column:1/-1;"><label for="trainingTopics">Temas tratados *</label><textarea id="trainingTopics" required maxlength="700"></textarea></div>
       </div>
       <div class="form-actions"><button class="btn-primary btn-inline" type="submit">Guardar capacitación</button><button class="btn-secondary" type="button" data-close-modal="trainingModal">Cancelar</button></div>
     </form>
@@ -860,8 +884,8 @@
       </div></div>
       <div class="field"><label for="incidentDescription">Descripción *</label><textarea id="incidentDescription" required maxlength="700"></textarea></div>
       <div class="field"><label for="incidentActions">Medidas o seguimiento realizado</label><textarea id="incidentActions" maxlength="700"></textarea></div>
-      <label class="sign-option" style="margin-top:12px;"><input id="incidentPrepareEmail" type="checkbox" checked>Preparar aviso por correo a d.pinto@deporte.gub.uy al guardar</label>
-      <div class="email-preview-note">En esta versión local se abrirá un correo ya redactado en tu aplicación de correo. Por seguridad, el envío requiere que la persona confirme <b>Enviar</b>. El envío automático quedará habilitado cuando el sistema tenga backend.</div>
+      <label class="sign-option" style="margin-top:12px;"><input id="incidentPrepareEmail" type="checkbox" checked disabled>Aviso obligatorio por correo a d.pinto@deporte.gub.uy al guardar</label>
+      <div class="email-preview-note">Al guardar se abrirá obligatoriamente un correo ya redactado en tu aplicación de correo. Por seguridad, el envío requiere que la persona confirme <b>Enviar</b>. El envío automático quedará habilitado cuando el sistema tenga backend.</div>
       <div class="form-actions"><button class="btn-primary btn-inline" type="submit">Guardar incidente</button><button class="btn-secondary" type="button" data-close-modal="incidentModal">Cancelar</button></div>
     </form>
   </div>
@@ -1003,7 +1027,7 @@ function makeManualTracking(variant=0){
   const person=names[variant]||'';
   return {
     followup:{designated:person?'yes':'process',person,date:person?'2026-03-10':'',relationship:person?'Integrante de la Comisión Directiva':''},
-    trainingStaff:person?[{id:uid('manual'),name:person,category:'Sub 13',onfi:'yes',licenseC:'no',untrained:'no',date:'2026-03-14'}]:[],
+    trainingStaff:person?[{id:uid('manual'),name:person,category:'Sub 13',email:'',cedula:'',phone:'',onfi:'yes',licenseC:'no',formation:'yes',date:'2026-03-14'}]:[],
     certificates:[
       {id:uid('manual'),role:'Orientador técnico',name:person,goodConduct:person?'yes':'no',judicial:person?'yes':'no',registry:person?'yes':'no'},
       {id:uid('manual'),role:'Ayudante técnico',name:'',goodConduct:'no',judicial:'no',registry:'no'},
@@ -1012,7 +1036,7 @@ function makeManualTracking(variant=0){
     workshops:person?[{id:uid('manual'),date:'2026-03-22',participants:'18',topics:'Prácticas cuidadas y prevención de violencias'}]:[],
     practices:[
       {id:'practice-1',practice:'El club ha adherido al código institucional.',status:'process'},
-      {id:'practice-2',practice:'Todos los referentes han adherido al código de conducta.',status:'process'},
+      {id:'practice-2',practice:'Todos los referentes designados en la sección II han adherido al código de conducta.',status:'process'},
       {id:'practice-3',practice:'Existe un procedimiento claro e informado para comunicar situaciones de violencia hacia niñas, niños o adolescentes.',status:'no'},
       {id:'practice-4',practice:'Existe un protocolo ante lesiones o accidentes claro e informado.',status:'process'},
       {id:'practice-5',practice:'El club ha instalado como práctica que los adultos no queden a solas con un niño sin supervisión visible.',status:'yes'},
@@ -1085,6 +1109,7 @@ function defaultData(){
     version:7,
     mapSourceUrl:DEFAULT_MAP_URL,
     notifications:[],
+    sndTrainings:[],
     globalIndicators:[{id:'indicator-global-1',name:'Clubes incorporados',value:4,unit:'clubes',target:10,status:'warn',date:'2026-07-19',notes:'Cantidad total de clubes cargados en la prueba de concepto.'}],
     users:[
       {id:'u-admin',name:'Administración EDP',email:'admin@edp.uy',password:'EDP2026',role:'Administrador SND',scope:'national',active:true,lastAccess:''},
@@ -1111,6 +1136,7 @@ function loadData(){
     if(saved && Array.isArray(saved.clubs) && Array.isArray(saved.users)){
       saved.globalIndicators??=[];
       saved.notifications??=[];
+      saved.sndTrainings??=[];
       saved.mapSourceUrl??=DEFAULT_MAP_URL;
       saved.clubs.forEach((club,index)=>{club.documents??=[];club.trainings??=[];club.calendar??=[];club.incidents??=[];club.customIndicators??=[];club.manualTracking??=makeManualTracking(index);club.incidents.forEach(item=>{item.signTypes??=[];});club.requirements?.forEach(requirement=>{requirement.description??='';requirement.mandatory??=true;requirement.weight??=1;requirement.evidence??=structuredClone(requirement.id==='req1'?(requirementTemplate.find(item=>item.id==='req1')?.evidence||defaultRequirementEvidence(requirement.nombre)):defaultRequirementEvidence(requirement.nombre));});});
       saved.users.forEach(user=>{user.active??=true;user.lastAccess??='';});
@@ -1178,11 +1204,14 @@ const AuthService={
   }
 };
 function can(permission){return AuthService.can(permission);}
+function isSndAdmin(){return currentSession?.scope==='national'&&currentSession?.role==='Administrador SND'&&can('write');}
 function applyRolePermissions(){
   document.getElementById('app').classList.toggle('read-only',!can('write'));
   document.querySelector('[data-view="usuarios"]')?.classList.toggle('hidden',!can('manage_users'));
+  document.querySelector('[data-view="capacitaciones"]')?.classList.toggle('hidden',!isSndAdmin());
   document.querySelector('[data-view="configuracion"]')?.classList.toggle('hidden',!can('settings'));
-  document.querySelectorAll('#newDocumentBtn,#newTrainingBtn,#newCalendarBtn,#newIncidentBtn,#newIndicatorBtn,#newRequirementBtn').forEach(button=>button.toggleAttribute('disabled',!can('write')));
+  document.querySelectorAll('#newDocumentBtn,#newCalendarBtn,#newIncidentBtn,#newIndicatorBtn,#newRequirementBtn').forEach(button=>button.toggleAttribute('disabled',!can('write')));
+  document.getElementById('newTrainingBtn')?.toggleAttribute('disabled',!isSndAdmin());
   document.getElementById('newUserBtn')?.toggleAttribute('disabled',!can('manage_users'));
 }
 function escapeHtml(value=''){
@@ -1268,10 +1297,11 @@ function showApp(){
 
 /* ---------- Navegación ---------- */
 const titles={
-  inicio:['Inicio','Panel de gestión'],requisitos:['Cumplimiento del Manual EDP','Seguimiento de los estándares del Manual EDP'],capacitaciones:['Capacitaciones','Formación de referentes por categoría'],documentos:['Documentos','Archivo de certificados y documentación del club'],calendario:['Calendario','Actividades y vencimientos'],incidentes:['Reclamos de cartelería','Registro y seguimiento de reclamos de cartelería'],indicadores:['Indicadores','Comparativa de cumplimiento'],mapa:['Mapa nacional','Cumplimiento por club y departamento'],usuarios:['Usuarios','Gestión de accesos del club'],configuracion:['Configuración','Clubes, datos y respaldos de la demostración']
+  inicio:['Inicio','Panel de gestión'],requisitos:['Estándares de cumplimiento','Seguimiento de los estándares del Manual EDP'],capacitaciones:['Capacitación','Capacitaciones dictadas por la Secretaría Nacional del Deporte'],documentos:['Documentos','Archivo de certificados y documentación del club'],calendario:['Calendario','Actividades y vencimientos'],incidentes:['Reclamos de cartelería','Registro y seguimiento de reclamos de cartelería'],indicadores:['Indicadores','Comparativa de cumplimiento'],mapa:['Mapa nacional','Cumplimiento por club y departamento'],usuarios:['Usuarios','Gestión de accesos del club'],configuracion:['Configuración','Clubes, datos y respaldos de la demostración']
 };
 function goTo(view){
   if(view==='usuarios'&&!can('manage_users'))view='inicio';
+  if(view==='capacitaciones'&&!isSndAdmin())view='inicio';
   if(view==='configuracion'&&!can('settings'))view='inicio';
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   document.getElementById('view-'+view)?.classList.add('active');
@@ -1342,12 +1372,12 @@ function dashboardRequirementsForClub(club){
   const m=club.manualTracking??=makeManualTracking(),items=[];
   const add=(section,name,state,detail)=>items.push({section,name,state,detail,clubId:club.id,clubName:club.name});
   const yesState=value=>value==='yes'?'ok':value==='process'||value==='pending'?'warn':'bad';
-  const sectionFollowup='I. Seguimiento',sectionTraining='II. Formación de referentes',sectionProtection='III. Protección y prácticas cuidadas',sectionInclusion='IV. Género e inclusión',sectionInfrastructure='V. Infraestructura y mantenimiento';
+  const sectionFollowup='I. Seguimiento',sectionTraining='II. Vigencia de formación',sectionProtection='III. Protección y prácticas cuidadas',sectionInclusion='IV. Género e inclusión',sectionInfrastructure='V. Infraestructura y mantenimiento';
 
   add(sectionFollowup,'Referente de cumplimiento designado',yesState(m.followup.designated),m.followup.person||statusMeta(yesState(m.followup.designated))[0]);
 
-  if(!m.trainingStaff.length)add(sectionTraining,'Registrar formación de referentes','bad','No hay personas registradas');
-  m.trainingStaff.forEach(row=>{const complete=!!row.name&&!!row.category&&!!row.date&&(row.onfi==='yes'||row.licenseC==='yes')&&row.untrained!=='yes',started=!!row.name||!!row.category||!!row.date||row.onfi==='yes'||row.licenseC==='yes';add(sectionTraining,row.name?`Formación de ${row.name}`:'Completar referente en formación',complete?'ok':started?'warn':'bad',row.category||'Sin categoría');});
+  if(!m.trainingStaff.length)add(sectionTraining,'Registrar vigencia de formación','bad','No hay personas registradas');
+  m.trainingStaff.forEach(row=>{const formation=row.formation??(row.untrained==='yes'?'no':'yes'),complete=!!row.name&&!!row.category&&!!row.date&&formation==='yes',started=!!row.name||!!row.category||!!row.date||formation==='yes';add(sectionTraining,row.name?`Vigencia de formación de ${row.name}`:'Completar referente en formación',complete?'ok':started?'warn':'bad',row.category||'Sin categoría');});
 
   if(!m.certificates.length)add(sectionProtection,'Registrar cargos y certificados','bad','No hay cargos registrados');
   m.certificates.forEach(row=>{const complete=!!row.name&&row.goodConduct==='yes'&&row.judicial==='yes'&&row.registry==='yes',started=!!row.name||row.goodConduct==='yes'||row.judicial==='yes'||row.registry==='yes';add(sectionProtection,row.role||'Cargo sin especificar',complete?'ok':started?'warn':'bad',row.name||'Sin persona asignada');});
@@ -1386,11 +1416,10 @@ function renderDashboard(club){
 
   const pct=global?Math.round(scopeClubs.reduce((sum,item)=>sum+compliance(item),0)/(scopeClubs.length||1)):compliance(club),ok=requirements.filter(r=>r.estado==='ok').length,total=requirements.length,hero=view.querySelector('.status-hero');
   const dashboardRing=document.getElementById('dashboardIndicatorRing'),dashboardRingValue=document.getElementById('dashboardIndicatorRingValue');if(dashboardRing&&dashboardRingValue){dashboardRing.style.setProperty('--value',pct+'%');dashboardRing.style.setProperty('--ring-color',pct>=80?'var(--teal-500)':pct>=50?'var(--amber)':'var(--red)');dashboardRingValue.textContent=pct+'%';dashboardRing.setAttribute('aria-label',`${global?'Cumplimiento promedio nacional':'Cumplimiento general'}: ${pct}%`);document.getElementById('dashboardIndicatorRingTitle').textContent=global?'Promedio nacional':'Cumplimiento general';document.getElementById('dashboardIndicatorRingText').textContent=global?`${scopeClubs.length} clubes incluidos en el cálculo.`:`Resultado actual de ${club.name}.`;}
-  hero.style.background=pct>=80?'linear-gradient(120deg,#12A583,#0E8E9E)':pct>=50?'linear-gradient(120deg,#d69b12,#b67a0b)':'linear-gradient(120deg,#df5656,#b93535)';hero.querySelector('h4').textContent=global?'Resumen nacional EDP':pct>=80?'Espacio Deportivo Protegido':pct>=50?'Club en proceso de cumplimiento':'Club que requiere atención';hero.querySelector('p').textContent=global?`${scopeClubs.length} clubes · ${new Set(scopeClubs.map(item=>item.department)).size} departamentos`:`${club.city||club.department} · ${club.department}`;view.querySelector('.compliance-row span').textContent=global?'Cumplimiento promedio':'Cumplimiento general';view.querySelector('.compliance-row b').textContent=pct+'%';view.querySelector('.bar-fill').style.width=pct+'%';cards[0].querySelector('.card-sub').textContent=`${ok} de ${total} requisitos cumplidos en el conjunto`;
+  hero.style.background=pct>=80?'linear-gradient(120deg,#12A583,#0E8E9E)':pct>=50?'linear-gradient(120deg,#d69b12,#b67a0b)':'linear-gradient(120deg,#df5656,#b93535)';hero.querySelector('h4').textContent=global?'Resumen nacional EDP':pct>=80?'Espacio Deportivo Protegido':pct>=50?'Club en proceso de cumplimiento':'Club que requiere atención';hero.querySelector('p').textContent=global?`${scopeClubs.length} clubes · ${new Set(scopeClubs.map(item=>item.department)).size} departamentos`:`${club.city||club.department} · ${club.department}`;view.querySelector('.compliance-row span').textContent=global?'Cumplimiento promedio':'Cumplimiento general';view.querySelector('.compliance-row b').textContent=pct+'%';view.querySelector('.bar-fill').style.width=pct+'%';cards[0].querySelector('.card-sub').textContent=`${ok} de ${total} estándares cumplidos en el conjunto`;
 
   const actions=[
     ...docs.filter(doc=>effectiveDocumentStatus(doc)!=='vigente').map(doc=>({title:doc.title,detail:`${global?doc._clubName+' · ':''}${documentStatus(effectiveDocumentStatus(doc))[0]}`,state:effectiveDocumentStatus(doc)==='vencido'?'bad':'warn',view:'documentos'})),
-    ...trainings.filter(item=>item.status!=='completada').map(item=>({title:item.type,detail:`${global?item._clubName+' · ':''}${item.provider?item.provider+' · ':''}${trainingStatus(item.status)[0]}`,state:item.status==='pendiente'?'bad':'warn',view:'capacitaciones'})),
     ...incidents.filter(item=>item.status!=='cerrado').map(item=>({title:`Reclamo de cartelería`,detail:`${global?item._clubName+' · ':''}${item.place} · ${incidentStatus(item.status)[0]}`,state:item.status==='abierto'?'bad':'warn',view:'incidentes'})),
     ...scopeClubs.flatMap(scopeClub=>dashboardRequirementsForClub(scopeClub)).filter(item=>item.state!=='ok').map(item=>({title:item.name,detail:`${global?item.clubName+' · ':''}${item.detail||statusMeta(item.state)[0]}`,state:item.state,view:'requisitos'}))
   ].slice(0,4);
@@ -1400,7 +1429,7 @@ function renderDashboard(club){
 
   const activitiesCard=cards[3],activityHead=activitiesCard.querySelector('.card-head');activitiesCard.querySelectorAll('.date-item,.card-sub').forEach(x=>x.remove());const activities=calendar.filter(item=>item.status!=='completada'&&item.status!=='cancelada').sort((a,b)=>a.date.localeCompare(b.date)).slice(0,3);activityHead.insertAdjacentHTML('afterend',activities.length?activities.map(item=>{const date=new Date(item.date+'T12:00:00'),day=String(date.getDate()).padStart(2,'0'),month=date.toLocaleDateString('es-UY',{month:'short'}).replace('.',''),[label,css]=calendarStatus(item.status);return `<div class="date-item" onclick="goTo('calendario')"><div class="date-box"><b>${day}</b><span>${escapeHtml(month)}</span></div><div class="li-text"><b>${escapeHtml(item.title)}</b><span>${global?escapeHtml(item._clubName)+' · ':''}${escapeHtml(item.type)}</span></div><div class="pill ${css}">${label}</div></div>`;}).join(''):'<p class="card-sub">No hay actividades próximas.</p>');
 
-  const nationalPct=Math.round(db.clubs.reduce((sum,c)=>sum+compliance(c),0)/(db.clubs.length||1)),indicatorLabels=cards[4].querySelectorAll('.indicator-row span:nth-child(2)'),indicatorRows=cards[4].querySelectorAll('.indicator-row b');if(global){indicatorLabels[0].textContent='Promedio nacional';indicatorLabels[1].textContent='Clubes con 80% o más';indicatorLabels[2].textContent='Departamentos representados';indicatorRows[0].textContent=nationalPct+'%';indicatorRows[1].textContent=db.clubs.filter(item=>compliance(item)>=80).length;indicatorRows[2].textContent=new Set(db.clubs.map(item=>item.department)).size;}else{const leagueClubs=db.clubs.filter(c=>(c.league||'')===(club.league||'')&&(club.league||'')!=='');const leagueBase=leagueClubs.length?leagueClubs:db.clubs.filter(c=>c.department===club.department);const leaguePct=Math.round(leagueBase.reduce((sum,c)=>sum+compliance(c),0)/(leagueBase.length||1));indicatorLabels[0].textContent='Mi club';indicatorLabels[1].textContent='Promedio de la liga';indicatorLabels[2].textContent='Promedio nacional';indicatorRows[0].textContent=pct+'%';indicatorRows[1].textContent=leaguePct+'%';indicatorRows[2].textContent=nationalPct+'%';}const homeCategoryDefinitions=[['Seguimiento','I. Seguimiento'],['Formación','II. Formación de referentes'],['Protección','III. Protección y prácticas cuidadas'],['Género e inclusión','IV. Género e inclusión'],['Infraestructura','V. Infraestructura y mantenimiento']],homeCategoryValues=homeCategoryDefinitions.map(([label,section])=>{const items=dashboardRequirements.filter(item=>item.section===section),completed=items.filter(item=>item.state==='ok').length;return [label,items.length?Math.round(completed/items.length*100):0];}),compRows=cards[4].querySelectorAll('.comp-row');homeCategoryValues.forEach(([label,value],index)=>{const row=compRows[index];if(!row)return;row.querySelector('.comp-top span:first-child').textContent=label;row.querySelector('.comp-top span:last-child').textContent=value+'%';row.querySelector('.comp-fill').style.width=value+'%';});
+  const nationalPct=Math.round(db.clubs.reduce((sum,c)=>sum+compliance(c),0)/(db.clubs.length||1)),indicatorLabels=cards[4].querySelectorAll('.indicator-row span:nth-child(2)'),indicatorRows=cards[4].querySelectorAll('.indicator-row b');if(global){indicatorLabels[0].textContent='Promedio nacional';indicatorLabels[1].textContent='Clubes con 80% o más';indicatorLabels[2].textContent='Departamentos representados';indicatorRows[0].textContent=nationalPct+'%';indicatorRows[1].textContent=db.clubs.filter(item=>compliance(item)>=80).length;indicatorRows[2].textContent=new Set(db.clubs.map(item=>item.department)).size;}else{const leagueClubs=db.clubs.filter(c=>(c.league||'')===(club.league||'')&&(club.league||'')!=='');const leagueBase=leagueClubs.length?leagueClubs:db.clubs.filter(c=>c.department===club.department);const leaguePct=Math.round(leagueBase.reduce((sum,c)=>sum+compliance(c),0)/(leagueBase.length||1));indicatorLabels[0].textContent='Mi club';indicatorLabels[1].textContent='Promedio de la liga';indicatorLabels[2].textContent='Promedio nacional';indicatorRows[0].textContent=pct+'%';indicatorRows[1].textContent=leaguePct+'%';indicatorRows[2].textContent=nationalPct+'%';}const homeCategoryDefinitions=[['Seguimiento','I. Seguimiento'],['Vigencia de formación','II. Vigencia de formación'],['Protección','III. Protección y prácticas cuidadas'],['Género e inclusión','IV. Género e inclusión'],['Infraestructura','V. Infraestructura y mantenimiento']],homeCategoryValues=homeCategoryDefinitions.map(([label,section])=>{const items=dashboardRequirements.filter(item=>item.section===section),completed=items.filter(item=>item.state==='ok').length;return [label,items.length?Math.round(completed/items.length*100):0];}),compRows=cards[4].querySelectorAll('.comp-row');homeCategoryValues.forEach(([label,value],index)=>{const row=compRows[index];if(!row)return;row.querySelector('.comp-top span:first-child').textContent=label;row.querySelector('.comp-top span:last-child').textContent=value+'%';row.querySelector('.comp-fill').style.width=value+'%';});
 
   const mapCard=cards[5],mapHead=mapCard.querySelector('.card-head');mapCard.querySelector('.national-summary')?.remove();const allDocs=db.clubs.reduce((sum,c)=>sum+(c.documents||[]).length,0),allIncidents=db.clubs.reduce((sum,c)=>sum+(c.incidents||[]).length,0);mapHead.insertAdjacentHTML('afterend',`<p class="card-sub national-summary">${db.clubs.length} clubes · ${allDocs} documentos · ${allIncidents} incidentes registrados</p>`);
 
@@ -1429,20 +1458,24 @@ function renderRequirements(club){
     return;
   }
   const m=club.manualTracking??=makeManualTracking();
-  const yesNo=[['yes','Sí'],['no','No']],status3=[['yes','Sí'],['no','No'],['process','En proceso']],hasStatus=[['yes','Tiene'],['no','No tiene'],['pending','Pendiente de verificar']],inclusionStatus=[['achieved','Logrado'],['process','En proceso'],['not-planned','No proyectado aún']];
+  const yesNo=[['yes','Sí'],['no','No']],yesPending=[['yes','Sí'],['process','En trámite']],status3=[['yes','Sí'],['no','No'],['process','En proceso']],hasStatus=[['yes','Tiene'],['no','No tiene'],['pending','Pendiente de verificar']],inclusionStatus=[['achieved','Logrado'],['process','En proceso'],['not-planned','No proyectado aún']];
   const girlsCategoryOptions=[['Sub 13','Sub 13'],['Sub 11','Sub 11'],['Otras','Otras']],maintenanceTypes=[['Limpieza de baños','Limpieza de baños'],['Limpieza de vestuarios','Limpieza de vestuarios'],['Limpieza de salón multiuso','Limpieza de salón multiuso'],['Limpieza de cancha y gradas','Limpieza de cancha y gradas'],['Otro','Otro']],frequencyOptions=[['Diaria','Diaria'],['Semanal','Semanal'],['Otro','Otro']],sectorOptions=[['','Seleccionar…'],['Cancha','Cancha'],['Cerco','Cerco'],['Vestuarios','Vestuarios'],['Salón','Salón'],['Baños','Baños'],['Gradas','Gradas']],monthOptions=[['','Seleccionar…'],...['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Setiembre','Octubre','Noviembre','Diciembre'].map(month=>[month,month])];
+  let manualDataNormalized=false;
+  m.trainingStaff.forEach(row=>{
+    if(row.email==null){row.email='';manualDataNormalized=true;}if(row.cedula==null){row.cedula='';manualDataNormalized=true;}if(row.phone==null){row.phone='';manualDataNormalized=true;}
+    if(row.formation==null){row.formation=row.untrained==='yes'?'no':'yes';manualDataNormalized=true;}
+  });
+  m.certificates.forEach(row=>['goodConduct','judicial','registry'].forEach(field=>{if(row[field]!=='yes'&&row[field]!=='process'){row[field]='process';manualDataNormalized=true;}}));
   const trackingRows=`<tr><td>Referente de cumplimiento designado</td><td>${manualSelect(m.followup.designated,status3,'data-manual-scalar="followup.designated"')}</td></tr><tr><td>Nombre de la persona designada</td><td>${manualInput(m.followup.person,'text','data-manual-scalar="followup.person" maxlength="160"')}</td></tr><tr><td>Fecha de la designación</td><td>${manualInput(m.followup.date,'date','data-manual-scalar="followup.date"')}</td></tr><tr><td>Vínculo con el club</td><td>${manualInput(m.followup.relationship,'text','data-manual-scalar="followup.relationship" maxlength="160"')}</td></tr>`;
-  const staffRows=manualArrayRows(m.trainingStaff,[
-    {field:'name',render:(r,a)=>manualInput(r.name,'text',a+' maxlength="140"')},{field:'category',render:(r,a)=>manualInput(r.category,'text',a+' maxlength="80"')},{field:'onfi',render:(r,a)=>manualSelect(r.onfi,yesNo,a)},{field:'licenseC',render:(r,a)=>manualSelect(r.licenseC,yesNo,a)},{field:'untrained',render:(r,a)=>manualSelect(r.untrained,yesNo,a)},{field:'date',render:(r,a)=>manualInput(r.date,'date',a)}
-  ],'trainingStaff');
+  const staffRows=m.trainingStaff.map(row=>`<tr><td>${manualInput(row.name,'text',`data-manual-array="trainingStaff" data-row-id="${escapeHtml(row.id)}" data-field="name" maxlength="140"`)}</td><td>${manualInput(row.category,'text',`data-manual-array="trainingStaff" data-row-id="${escapeHtml(row.id)}" data-field="category" maxlength="80"`)}</td><td>${manualSelect(row.onfi,yesNo,`data-manual-array="trainingStaff" data-row-id="${escapeHtml(row.id)}" data-field="onfi"`)}</td><td>${manualSelect(row.licenseC,yesNo,`data-manual-array="trainingStaff" data-row-id="${escapeHtml(row.id)}" data-field="licenseC"`)}</td><td>${manualSelect(row.formation,yesNo,`data-manual-array="trainingStaff" data-row-id="${escapeHtml(row.id)}" data-field="formation"`)}</td><td>${manualInput(row.date,'date',`data-manual-array="trainingStaff" data-row-id="${escapeHtml(row.id)}" data-field="date"`)}</td><td class="row-actions"><div class="club-row-actions"><button class="btn-small" type="button" data-training-staff-edit="${escapeHtml(row.id)}">Editar ficha</button>${manualRowButton('trainingStaff',row.id)}</div></td></tr>`).join('');
   const certificateRows=manualArrayRows(m.certificates,[
-    {field:'role',render:(r,a)=>manualInput(r.role,'text',a+' maxlength="100"')},{field:'name',render:(r,a)=>manualInput(r.name,'text',a+' maxlength="140"')},{field:'goodConduct',render:(r,a)=>manualSelect(r.goodConduct,yesNo,a)},{field:'judicial',render:(r,a)=>manualSelect(r.judicial,yesNo,a)},{field:'registry',render:(r,a)=>manualSelect(r.registry,yesNo,a)}
+    {field:'role',render:(r,a)=>manualInput(r.role,'text',a+' maxlength="100"')},{field:'name',render:(r,a)=>manualInput(r.name,'text',a+' maxlength="140"')},{field:'goodConduct',render:(r,a)=>manualSelect(r.goodConduct,yesPending,a)},{field:'judicial',render:(r,a)=>manualSelect(r.judicial,yesPending,a)},{field:'registry',render:(r,a)=>manualSelect(r.registry,yesPending,a)}
   ],'certificates');
   const workshopRows=manualArrayRows(m.workshops,[
     {field:'date',render:(r,a)=>manualInput(r.date,'date',a)},{field:'participants',render:(r,a)=>manualInput(r.participants,'number',a+' min="0"')},{field:'topics',render:(r,a)=>manualInput(r.topics,'text',a+' maxlength="240"')}
   ],'workshops');
-  let manualDataNormalized=false;
   m.practices.forEach(row=>{
+    if(row.id==='practice-2'&&row.practice!=='Todos los referentes designados en la sección II han adherido al código de conducta.'){row.practice='Todos los referentes designados en la sección II han adherido al código de conducta.';manualDataNormalized=true;}
     if(row.id==='practice-5'&&row.practice!=='El club ha instalado como práctica que los adultos no queden a solas con un niño sin supervisión visible.'){row.practice='El club ha instalado como práctica que los adultos no queden a solas con un niño sin supervisión visible.';manualDataNormalized=true;}
     if(row.id==='practice-6'&&row.practice!=='El club ha instalado como práctica que los niños y adultos utilicen vestuarios por separado.'){row.practice='El club ha instalado como práctica que los niños y adultos utilicen vestuarios por separado.';manualDataNormalized=true;}
     if(['practice-1','practice-2'].includes(row.id)&&!['yes','no'].includes(row.status)){row.status='no';manualDataNormalized=true;}
@@ -1457,7 +1490,8 @@ function renderRequirements(club){
     if(!girlsCategoryOptions.some(([value])=>value===row.category)){row.categoryDetail=row.category||'';row.category='Otras';manualDataNormalized=true;}
   });
   if(manualDataNormalized)saveData();
-  const practiceRows=m.practices.map(row=>{const options=['practice-1','practice-2'].includes(row.id)?yesNo:status3;return `<tr><td>${escapeHtml(row.practice)}</td><td>${manualSelect(row.status,options,`data-manual-array="practices" data-row-id="${row.id}" data-field="status"`)}</td></tr>`;}).join('');
+  const practiceAdmin=isSndAdmin(),practiceHeaders=practiceAdmin?['Práctica','Estado','Acciones']:['Práctica','Estado'];
+  const practiceRows=m.practices.map(row=>{const options=['practice-1','practice-2'].includes(row.id)?yesNo:status3;return `<tr><td>${escapeHtml(row.practice)}</td><td>${manualSelect(row.status,options,`data-manual-array="practices" data-row-id="${row.id}" data-field="status"`)}</td>${practiceAdmin?`<td class="row-actions">${manualRowButton('practices',row.id)}</td>`:''}</tr>`;}).join('');
   const infrastructureRows=manualArrayRows(m.infrastructure,[
     {field:'item',render:r=>`<span class="manual-fixed-item">${escapeHtml(r.item||'—')}</span>`},{field:'initial',render:(r,a)=>manualSelect(r.initial,hasStatus,a)},{field:'after12',render:(r,a)=>manualSelect(r.after12,hasStatus,a)}
   ],'infrastructure',false,false);
@@ -1475,11 +1509,11 @@ function renderRequirements(club){
   ],'inclusion',false,false);
   container.innerHTML=`
     <details class="manual-section" data-manual-section="I. Seguimiento" open><summary tabindex="-1">I. Seguimiento <span class="manual-info" role="button" tabindex="0" aria-expanded="false" aria-label="Mostrar información de Seguimiento">i</span></summary><aside class="manual-info-panel" hidden role="note"><strong>Información</strong><p>El club debe designar a una persona como referente de cumplimiento como una de las primeras acciones. Las funciones del o de la referente son:</p><ul><li>Llevar el registro de seguimiento de este Manual.</li><li>Asegurar el correcto archivo de los certificados obligatorios por ley.</li><li>Coordinar con ONFI todo lo pertinente a este Manual.</li></ul></aside><div class="manual-section-body">${manualBlock('Designación de referente de cumplimiento','Primer cuadro de seguimiento del Manual.',['Acción','Chequeo de cumplimiento'],trackingRows)}</div></details>
-    <details class="manual-section" data-manual-section="II. Formación de referentes"><summary tabindex="-1">II. Formación de referentes <span class="manual-info" role="button" tabindex="0" aria-expanded="false" aria-label="Mostrar información de Formación de referentes">i</span></summary><aside class="manual-info-panel" hidden role="note"><strong>Información</strong><p>Se debe registrar nombre y nivel de formación de cada una de las personas responsables de categoría, así como la fecha en que realizó la formación.</p><p>En caso de que se detecten responsables de categorías sin formación, el procedimiento indicado es:</p><ul><li>Informar a ONFI.</li><li>Generar acciones para instrumentar la capacitación obligatoria de la persona.</li></ul></aside><div class="manual-section-body">${manualBlock('Formación de responsables de categoría','Agregá una fila por persona y categoría.',['Nombre','Categoría a cargo','Certificación ONFI','Licencia C','Sin formación','Fecha de formación','Acciones'],staffRows,'trainingStaff')}</div></details>
+    <details class="manual-section" data-manual-section="II. Vigencia de formación"><summary tabindex="-1">II. Vigencia de formación <span class="manual-info" role="button" tabindex="0" aria-expanded="false" aria-label="Mostrar información de Vigencia de formación">i</span></summary><aside class="manual-info-panel" hidden role="note"><strong>Información</strong><p>Se debe registrar nombre y nivel de formación de cada una de las personas responsables de categoría, así como la fecha en que realizó la formación.</p><p>En caso de que se detecten responsables de categorías sin formación, el procedimiento indicado es:</p><ul><li>Informar a ONFI.</li><li>Generar acciones para instrumentar la capacitación obligatoria de la persona.</li></ul></aside><div class="manual-section-body">${manualBlock('Vigencia de formación','Agregá una fila por persona y categoría. Mail, cédula y celular se consultan desde “Editar ficha”.',['Nombre','Categoría a cargo','Certificación ONFI','Licencia C','Formación','Fecha de formación','Acciones'],staffRows,'trainingStaff')}</div></details>
     <details class="manual-section" data-manual-section="III. Protección y prácticas cuidadas"><summary tabindex="-1">III. Protección y prácticas cuidadas <span class="manual-info" role="button" tabindex="0" aria-expanded="false" aria-label="Mostrar información de Protección y prácticas cuidadas">i</span></summary><aside class="manual-info-panel" hidden role="note"><strong>Información</strong><p>Certificados: por ley, el club debe solicitar a las personas que tratan directo con niñas, niños, adolescentes la presentación de los certificados como requisito para la tarea. El club debe tener los certificados disponibles para presentar ante cualquier inspección.</p><p>Talleres: ONFI impulsa la realización de talleres vinculados a prácticas cuidadas.</p><p>Meta mínima: un (1) taller anual.</p></aside><div class="manual-section-body">
       ${manualBlock('Certificados obligatorios por ley','Agregá una fila por cargo o persona.',['Cargo','Nombre','Buena conducta','Antecedentes judiciales','No inscripción en Registro de violadores','Acciones'],certificateRows,'certificates')}
       ${manualBlock('Talleres ONFI','Meta mínima orientativa: un taller anual.',['Fecha del taller','Participantes (N.º)','Temas tratados','Acciones'],workshopRows,'workshops')}
-      ${manualBlock('Prácticas cuidadas','Chequeo institucional.',['Práctica','Estado'],practiceRows)}
+      ${manualBlock('Prácticas cuidadas','Los clubes únicamente actualizan el estado. La SND administra el listado de prácticas.',practiceHeaders,practiceRows,practiceAdmin?'practices':'')}
     </div></details>
     <details class="manual-section" data-manual-section="IV. Género e inclusión"><summary tabindex="-1">IV. Género e inclusión <span class="manual-info" role="button" tabindex="0" aria-expanded="false" aria-label="Mostrar información de Género e inclusión">i</span></summary><aside class="manual-info-panel" hidden role="note"><strong>Información</strong><p>El manual adjunto no incorpora una nota adicional de información para esta sección.</p></aside><div class="manual-section-body">
       ${manualBlock('Equipos de niñas','Registro por categoría.',['Categoría','Especificar categoría','Situación','Cantidad de jugadoras','Acciones'],girlsRows,'girlsTeams')}
@@ -1494,6 +1528,7 @@ function renderRequirements(club){
   if(!can('write'))container.querySelectorAll('input,select,button').forEach(control=>control.disabled=true);
   container.querySelectorAll('[data-manual-scalar],[data-manual-array]').forEach(control=>control.addEventListener('change',()=>updateManualField(club,control)));
   container.querySelectorAll('[data-manual-array="girlsTeams"][data-field="category"]').forEach(control=>control.addEventListener('change',()=>{const detail=control.closest('tr')?.querySelector('[data-field="categoryDetail"]');if(detail)detail.disabled=control.value!=='Otras';}));
+  container.querySelectorAll('[data-training-staff-edit]').forEach(button=>button.addEventListener('click',()=>openStaffFormationModal(club,button.dataset.trainingStaffEdit)));
   container.querySelectorAll('.manual-info').forEach(info=>{
     const toggleInfo=event=>{
       event.preventDefault();event.stopPropagation();
@@ -1528,17 +1563,54 @@ function restoreManualView(view){
   requestAnimationFrame(()=>window.scrollTo({top:view.scrollY,left:0,behavior:'auto'}));
 }
 function addManualRow(club,collection,view){
-  if(!can('write'))return;const templates={
-    trainingStaff:{name:'',category:'',onfi:'no',licenseC:'no',untrained:'yes',date:''},certificates:{role:'',name:'',goodConduct:'no',judicial:'no',registry:'no'},workshops:{date:'',participants:'',topics:''},
+  if(!can('write'))return;if(collection==='practices'&&!isSndAdmin())return;const templates={
+    trainingStaff:{name:'',category:'',email:'',cedula:'',phone:'',onfi:'no',licenseC:'no',formation:'no',date:''},certificates:{role:'',name:'',goodConduct:'process',judicial:'process',registry:'process'},practices:{practice:'',status:'process'},workshops:{date:'',participants:'',topics:''},
     infrastructure:{item:'',initial:'pending',after12:'pending'},basicMaintenance:{type:'Otro',typeDetail:'',frequency:'Otro',frequencyDetail:'',responsible:'no'},correctiveMaintenance:{sector:'',date:'',detail:''},preventiveMaintenance:{type:'Preventivo mensual',sector:'',month:'',responsible:'no'},
     girlsTeams:{category:'Sub 13',categoryDetail:'',status:'process',players:''},inclusion:{item:'',status:'not-planned',date:''}
   };if(!templates[collection])return;
-  if(['infrastructure','inclusion'].includes(collection)){const label=prompt(collection==='infrastructure'?'Nombre del nuevo ítem de infraestructura:':'Nombre del nuevo ítem de inclusión:','');if(label===null||!label.trim())return;templates[collection].item=label.trim();}
+  if(['infrastructure','inclusion','practices'].includes(collection)){const question=collection==='infrastructure'?'Nombre del nuevo ítem de infraestructura:':collection==='inclusion'?'Nombre del nuevo ítem de inclusión:':'Texto de la nueva práctica cuidada:';const label=prompt(question,'');if(label===null||!label.trim())return;if(collection==='practices')templates[collection].practice=label.trim();else templates[collection].item=label.trim();}
   club.manualTracking[collection].push({id:uid('manual'),...templates[collection]});saveData();renderRequirements(club);restoreManualView(view);
 }
 function removeManualRow(club,collection,rowId,view){
-  if(!can('write')||!confirm('¿Eliminar esta fila de la tabla?'))return;club.manualTracking[collection]=(club.manualTracking[collection]||[]).filter(item=>item.id!==rowId);saveData();renderRequirements(club);restoreManualView(view);
+  if(!can('write')||(collection==='practices'&&!isSndAdmin())||!confirm('¿Eliminar esta fila de la tabla?'))return;club.manualTracking[collection]=(club.manualTracking[collection]||[]).filter(item=>item.id!==rowId);saveData();renderRequirements(club);restoreManualView(view);
 }
+function openStaffFormationModal(club,rowId){
+  if(!can('write')||!club)return;
+  const row=(club.manualTracking?.trainingStaff||[]).find(item=>item.id===rowId);if(!row)return;
+  document.getElementById('staffFormationRowId').value=row.id;
+  document.getElementById('staffFormationClubId').value=club.id;
+  document.getElementById('staffFormationName').value=row.name||'';
+  document.getElementById('staffFormationCategory').value=row.category||'';
+  document.getElementById('staffFormationEmail').value=row.email||'';
+  document.getElementById('staffFormationCedula').value=row.cedula||'';
+  document.getElementById('staffFormationPhone').value=row.phone||'';
+  document.getElementById('staffFormationOnfi').value=row.onfi||'no';
+  document.getElementById('staffFormationLicense').value=row.licenseC||'no';
+  document.getElementById('staffFormationValid').value=row.formation||'no';
+  document.getElementById('staffFormationDate').value=row.date||'';
+  const modal=document.getElementById('staffFormationModal'),manualContainer=document.getElementById('requisitosAccordion');
+  modal.dataset.manualView=JSON.stringify(captureManualView(manualContainer));
+  modal.classList.remove('hidden');
+  setTimeout(()=>document.getElementById('staffFormationName').focus(),0);
+}
+document.getElementById('staffFormationForm').addEventListener('submit',event=>{
+  event.preventDefault();if(!can('write'))return;
+  const club=db.clubs.find(item=>item.id===document.getElementById('staffFormationClubId').value),row=club?.manualTracking?.trainingStaff?.find(item=>item.id===document.getElementById('staffFormationRowId').value);if(!club||!row)return;
+  Object.assign(row,{
+    name:document.getElementById('staffFormationName').value.trim(),
+    category:document.getElementById('staffFormationCategory').value.trim(),
+    email:document.getElementById('staffFormationEmail').value.trim(),
+    cedula:document.getElementById('staffFormationCedula').value.trim(),
+    phone:document.getElementById('staffFormationPhone').value.trim(),
+    onfi:document.getElementById('staffFormationOnfi').value,
+    licenseC:document.getElementById('staffFormationLicense').value,
+    formation:document.getElementById('staffFormationValid').value,
+    date:document.getElementById('staffFormationDate').value
+  });
+  const modal=document.getElementById('staffFormationModal'),view=modal.dataset.manualView?JSON.parse(modal.dataset.manualView):null;
+  saveData();closeModal('staffFormationModal');renderRequirements(club);restoreManualView(view);
+});
+
 function formatDate(value){
   if(!value)return '—';const [year,month,day]=value.split('-');return year&&month&&day?`${day}/${month}/${year}`:value;
 }
@@ -1556,9 +1628,13 @@ function renderDocuments(club){
   body.innerHTML=docs.length?docs.map(doc=>{const [label,css]=documentStatus(effectiveDocumentStatus(doc));return `<tr>${global?`<td><b>${escapeHtml(doc._clubName)}</b></td>`:''}<td><b>${escapeHtml(doc.title)}</b><br><span style="font-size:11px;color:var(--text-600);">${escapeHtml(doc.fileName||'Sin archivo')}</span></td><td>${escapeHtml(doc.type)}</td><td>${formatDate(doc.date)}</td><td>${formatDate(doc.expiry)}</td><td><span class="tag ${css}">${label}</span></td><td><div class="club-row-actions">${doc.fileData?`<button class="btn-small" data-doc-action="download" data-id="${doc.id}" data-club-id="${doc._clubId}">Descargar</button>`:''}<button class="btn-small" data-doc-action="edit" data-id="${doc.id}" data-club-id="${doc._clubId}">Editar</button><button class="btn-small btn-danger" data-doc-action="delete" data-id="${doc.id}" data-club-id="${doc._clubId}">Eliminar</button></div></td></tr>`;}).join(''):emptyRow(global?7:6,'Todavía no hay documentos cargados.');
   body.querySelectorAll('button').forEach(button=>button.addEventListener('click',()=>handleDocumentAction(button.dataset.docAction,button.dataset.id,button.dataset.clubId)));
 }
-function renderTrainings(club){
-  const global=!club,scopeClubs=global?db.clubs:[club],body=document.getElementById('trainingsTableBody'),table=body.closest('table'),items=scopeClubs.flatMap(scopeClub=>(scopeClub.trainings||[]).map(item=>({...item,_clubId:scopeClub.id,_clubName:scopeClub.name})));
-  document.getElementById('newTrainingBtn').classList.toggle('hidden',global);table.querySelector('thead').innerHTML=`<tr>${global?'<th>Club</th>':''}<th>Capacitación</th><th>Fecha</th><th>Dictado por</th><th>Estado</th><th>Acciones</th></tr>`;body.innerHTML=items.length?items.map(item=>{const [label,css]=trainingStatus(item.status);return `<tr>${global?`<td><b>${escapeHtml(item._clubName)}</b></td>`:''}<td><b>${escapeHtml(item.type)}</b></td><td>${formatDate(item.date)}</td><td>${escapeHtml(item.provider||'—')}</td><td><span class="tag ${css}">${label}</span></td><td><div class="club-row-actions"><button class="btn-small" data-training-action="edit" data-id="${item.id}" data-club-id="${item._clubId}">Editar</button><button class="btn-small btn-danger" data-training-action="delete" data-id="${item.id}" data-club-id="${item._clubId}">Eliminar</button></div></td></tr>`;}).join(''):emptyRow(global?6:5,'Todavía no hay capacitaciones cargadas.');body.querySelectorAll('button').forEach(button=>button.addEventListener('click',()=>handleTrainingAction(button.dataset.trainingAction,button.dataset.id,button.dataset.clubId)));
+function renderTrainings(){
+  const body=document.getElementById('trainingsTableBody');if(!body)return;
+  const allowed=isSndAdmin();document.getElementById('newTrainingBtn').classList.toggle('hidden',!allowed);
+  if(!allowed){body.innerHTML='';return;}
+  const items=db.sndTrainings||[];
+  body.innerHTML=items.length?items.map(item=>`<tr><td><b>${escapeHtml(item.type)}</b></td><td>${formatDate(item.date)}</td><td>${escapeHtml(item.participants)}</td><td>${escapeHtml(item.topics||'—')}</td><td><div class="club-row-actions"><button class="btn-small" data-training-action="edit" data-id="${item.id}">Editar</button><button class="btn-small btn-danger" data-training-action="delete" data-id="${item.id}">Eliminar</button></div></td></tr>`).join(''):emptyRow(5,'Todavía no hay capacitaciones dictadas por la SND.');
+  body.querySelectorAll('button').forEach(button=>button.addEventListener('click',()=>handleTrainingAction(button.dataset.trainingAction,button.dataset.id)));
 }
 function renderCalendar(club){
   const global=!club,scopeClubs=global?db.clubs:[club],target=document.getElementById('calendarList'),items=scopeClubs.flatMap(scopeClub=>(scopeClub.calendar||[]).map(item=>({...item,_clubId:scopeClub.id,_clubName:scopeClub.name}))).sort((a,b)=>a.date.localeCompare(b.date));document.getElementById('newCalendarBtn').classList.toggle('hidden',global);
@@ -1579,10 +1655,10 @@ function renderIndicators(club){
   document.getElementById('indicatorScopeLabel').textContent=global?'Indicadores globales de todos los clubes':'Indicadores de '+club.name;
   if(global){labels[0].textContent='Promedio nacional';labels[1].textContent='Clubes con 80% o más';labels[2].textContent='Departamentos representados';values[0].textContent=national+'%';values[1].textContent=db.clubs.filter(item=>compliance(item)>=80).length;values[2].textContent=new Set(db.clubs.map(item=>item.department)).size;}
   else{const pct=compliance(club),leagueClubs=db.clubs.filter(c=>(c.league||'')===(club.league||'')&&(club.league||'')!=='');const leagueBase=leagueClubs.length?leagueClubs:db.clubs.filter(c=>c.department===club.department),leaguePct=Math.round(leagueBase.reduce((s,c)=>s+compliance(c),0)/(leagueBase.length||1));labels[0].textContent='Mi club';labels[1].textContent='Promedio de la liga';labels[2].textContent='Promedio nacional';values[0].textContent=pct+'%';values[1].textContent=leaguePct+'%';values[2].textContent=national+'%';}
-  const primaryValue=global?national:compliance(club),ring=document.getElementById('indicatorMainRing'),ringValue=document.getElementById('indicatorMainRingValue');if(ring&&ringValue){ring.style.setProperty('--value',primaryValue+'%');ring.style.setProperty('--ring-color',primaryValue>=80?'var(--teal-500)':primaryValue>=50?'var(--amber)':'var(--red)');ringValue.textContent=primaryValue+'%';ring.setAttribute('aria-label',`${global?'Promedio nacional':'Cumplimiento de '+club.name}: ${primaryValue}%`);document.getElementById('indicatorMainRingTitle').textContent=global?'Promedio nacional':'Cumplimiento de '+club.name;document.getElementById('indicatorMainRingText').textContent=primaryValue>=80?'Nivel de cumplimiento destacado.':primaryValue>=50?'El cumplimiento se encuentra en proceso.':'Hay requisitos que requieren atención prioritaria.';}
-  const scopes=global?db.clubs:[club],manualItems=scopes.flatMap(item=>dashboardRequirementsForClub(item)),categoryDefinitions=[['Seguimiento','I. Seguimiento'],['Formación','II. Formación de referentes'],['Protección','III. Protección y prácticas cuidadas'],['Género e inclusión','IV. Género e inclusión'],['Infraestructura','V. Infraestructura y mantenimiento']],categoryValues=categoryDefinitions.map(([label,section])=>{const items=manualItems.filter(item=>item.section===section),completed=items.filter(item=>item.state==='ok').length;return {label,section,value:items.length?Math.round(completed/items.length*100):0};}),chart=document.getElementById('indicatorCategoryChart'),lines=document.getElementById('indicatorCategoryLines');
-  if(chart){chart.innerHTML=categoryValues.map(item=>`<button type="button" class="category-bar" data-requirement-section="${escapeHtml(item.section)}" title="Abrir ${escapeHtml(item.section)} en Cumplimiento del Manual EDP"><span class="category-bar-value">${item.value}%</span><span class="category-bar-track"><span class="category-bar-fill" style="--bar:${item.value}%"></span></span><span class="category-bar-label">${escapeHtml(item.label)}</span></button>`).join('');chart.setAttribute('aria-label',categoryValues.map(item=>`${item.label}: ${item.value}%`).join('. '));chart.querySelectorAll('[data-requirement-section]').forEach(button=>button.addEventListener('click',()=>goToRequirementSection(button.dataset.requirementSection)));}
-  if(lines){lines.innerHTML=categoryValues.map(item=>`<button type="button" class="indicator-category-line" data-requirement-section="${escapeHtml(item.section)}" title="Abrir ${escapeHtml(item.section)} en Cumplimiento del Manual EDP"><span class="comp-row"><span class="comp-top"><span>${escapeHtml(item.label)}</span><span>${item.value}%</span></span><span class="comp-track"><span class="comp-fill" style="width:${item.value}%"></span></span></span></button>`).join('');lines.querySelectorAll('[data-requirement-section]').forEach(button=>button.addEventListener('click',()=>goToRequirementSection(button.dataset.requirementSection)));}
+  const primaryValue=global?national:compliance(club),ring=document.getElementById('indicatorMainRing'),ringValue=document.getElementById('indicatorMainRingValue');if(ring&&ringValue){ring.style.setProperty('--value',primaryValue+'%');ring.style.setProperty('--ring-color',primaryValue>=80?'var(--teal-500)':primaryValue>=50?'var(--amber)':'var(--red)');ringValue.textContent=primaryValue+'%';ring.setAttribute('aria-label',`${global?'Promedio nacional':'Cumplimiento de '+club.name}: ${primaryValue}%`);document.getElementById('indicatorMainRingTitle').textContent=global?'Promedio nacional':'Cumplimiento de '+club.name;document.getElementById('indicatorMainRingText').textContent=primaryValue>=80?'Nivel de cumplimiento destacado.':primaryValue>=50?'El cumplimiento se encuentra en proceso.':'Hay estándares que requieren atención prioritaria.';}
+  const scopes=global?db.clubs:[club],manualItems=scopes.flatMap(item=>dashboardRequirementsForClub(item)),categoryDefinitions=[['Seguimiento','I. Seguimiento'],['Vigencia de formación','II. Vigencia de formación'],['Protección','III. Protección y prácticas cuidadas'],['Género e inclusión','IV. Género e inclusión'],['Infraestructura','V. Infraestructura y mantenimiento']],categoryValues=categoryDefinitions.map(([label,section])=>{const items=manualItems.filter(item=>item.section===section),completed=items.filter(item=>item.state==='ok').length;return {label,section,value:items.length?Math.round(completed/items.length*100):0};}),chart=document.getElementById('indicatorCategoryChart'),lines=document.getElementById('indicatorCategoryLines');
+  if(chart){chart.innerHTML=categoryValues.map(item=>`<button type="button" class="category-bar" data-requirement-section="${escapeHtml(item.section)}" title="Abrir ${escapeHtml(item.section)} en Estándares de cumplimiento"><span class="category-bar-value">${item.value}%</span><span class="category-bar-track"><span class="category-bar-fill" style="--bar:${item.value}%"></span></span><span class="category-bar-label">${escapeHtml(item.label)}</span></button>`).join('');chart.setAttribute('aria-label',categoryValues.map(item=>`${item.label}: ${item.value}%`).join('. '));chart.querySelectorAll('[data-requirement-section]').forEach(button=>button.addEventListener('click',()=>goToRequirementSection(button.dataset.requirementSection)));}
+  if(lines){lines.innerHTML=categoryValues.map(item=>`<button type="button" class="indicator-category-line" data-requirement-section="${escapeHtml(item.section)}" title="Abrir ${escapeHtml(item.section)} en Estándares de cumplimiento"><span class="comp-row"><span class="comp-top"><span>${escapeHtml(item.label)}</span><span>${item.value}%</span></span><span class="comp-track"><span class="comp-fill" style="width:${item.value}%"></span></span></span></button>`).join('');lines.querySelectorAll('[data-requirement-section]').forEach(button=>button.addEventListener('click',()=>goToRequirementSection(button.dataset.requirementSection)));}
 }
 function indicatorCollection(){const club=selectedClub();return club?club.customIndicators:db.globalIndicators;}
 function renderCustomIndicators(){
@@ -1655,21 +1731,25 @@ document.getElementById('documentForm').addEventListener('submit',async event=>{
   }catch(uploadError){error.textContent='No se pudo guardar el archivo. Probá con uno más pequeño o exportá un respaldo y restablecé la demo.';}
 });
 
-/* ---------- Capacitaciones ---------- */
-function openTrainingModal(item=null,clubId=null){
+/* ---------- Capacitación SND ---------- */
+function openTrainingModal(item=null){
+  if(!isSndAdmin())return;
   document.getElementById('trainingForm').reset();document.getElementById('trainingModalTitle').textContent=item?'Editar capacitación':'Nueva capacitación';
-  document.getElementById('trainingId').value=item?.id||'';document.getElementById('trainingType').value=item?.type||'';document.getElementById('trainingDate').value=item?.date||new Date().toISOString().slice(0,10);document.getElementById('trainingStatus').value=item?.status||'completada';document.getElementById('trainingProvider').value=item?.provider||'';
-  document.getElementById('trainingModal').dataset.clubId=clubId||selectedClub()?.id||'';document.getElementById('trainingModal').classList.remove('hidden');setTimeout(()=>document.getElementById('trainingType').focus(),0);
+  document.getElementById('trainingId').value=item?.id||'';document.getElementById('trainingType').value=item?.type||'';document.getElementById('trainingDate').value=item?.date||new Date().toISOString().slice(0,10);document.getElementById('trainingParticipants').value=item?.participants??'';document.getElementById('trainingTopics').value=item?.topics||'';
+  document.getElementById('trainingModal').classList.remove('hidden');setTimeout(()=>document.getElementById('trainingType').focus(),0);
 }
-function handleTrainingAction(action,id,clubId=null){
-  const club=db.clubs.find(item=>item.id===(clubId||selectedClub()?.id)),item=club?.trainings.find(x=>x.id===id);if(!item)return;
-  if(action==='edit')openTrainingModal(item,club.id);
-  if(action==='delete'&&confirm(`¿Eliminar la capacitación "${item.type}"?`)){club.trainings=club.trainings.filter(x=>x.id!==id);saveData();renderAll();}
+function handleTrainingAction(action,id){
+  if(!isSndAdmin())return;
+  const item=(db.sndTrainings||[]).find(x=>x.id===id);if(!item)return;
+  if(action==='edit')openTrainingModal(item);
+  if(action==='delete'&&confirm(`¿Eliminar la capacitación "${item.type}"?`)){db.sndTrainings=db.sndTrainings.filter(x=>x.id!==id);saveData();renderAll();}
 }
 document.getElementById('newTrainingBtn').addEventListener('click',()=>openTrainingModal());
 document.getElementById('trainingForm').addEventListener('submit',event=>{
-  event.preventDefault();const club=db.clubs.find(item=>item.id===document.getElementById('trainingModal').dataset.clubId),id=document.getElementById('trainingId').value,existing=club?.trainings.find(x=>x.id===id),values={type:document.getElementById('trainingType').value.trim(),date:document.getElementById('trainingDate').value,status:document.getElementById('trainingStatus').value,provider:document.getElementById('trainingProvider').value.trim()};if(!club)return;
-  if(existing)Object.assign(existing,values);else{club.trainings.push({id:uid('training'),...values});addNotification('training','Nueva capacitación registrada',`${club.name} · ${values.type}`,club.id);}saveData();closeModal('trainingModal');renderAll();
+  event.preventDefault();if(!isSndAdmin())return;
+  const id=document.getElementById('trainingId').value,existing=(db.sndTrainings||[]).find(x=>x.id===id),values={type:document.getElementById('trainingType').value.trim(),date:document.getElementById('trainingDate').value,participants:document.getElementById('trainingParticipants').value,topics:document.getElementById('trainingTopics').value.trim()};
+  if(existing)Object.assign(existing,values);else{db.sndTrainings??=[];db.sndTrainings.push({id:uid('snd-training'),...values});addNotification('training','Nueva capacitación SND',`${values.type} · ${formatDate(values.date)}`);}
+  saveData();closeModal('trainingModal');renderAll();
 });
 
 /* ---------- Calendario ---------- */
@@ -1693,7 +1773,7 @@ document.getElementById('calendarForm').addEventListener('submit',event=>{
 function openIncidentModal(item=null,clubId=null){
   document.getElementById('incidentForm').reset();document.getElementById('incidentModalTitle').textContent=item?'Editar reclamo de cartelería':'Reportar reclamo de cartelería';
   document.getElementById('incidentId').value=item?.id||'';document.getElementById('incidentDate').value=item?.date||new Date().toISOString().slice(0,10);document.getElementById('incidentType').value='Reclamo de cartelería';document.getElementById('incidentPlace').value=item?.place||'';document.getElementById('incidentStatus').value=item?.status||'abierto';document.getElementById('incidentDescription').value=item?.description||'';document.getElementById('incidentActions').value=item?.actions||'';
-  const selectedSigns=new Set(item?.signTypes||[]);document.querySelectorAll('input[name="incidentSign"]').forEach(input=>input.checked=selectedSigns.has(input.value));document.getElementById('incidentPrepareEmail').checked=!item;
+  const selectedSigns=new Set(item?.signTypes||[]);document.querySelectorAll('input[name="incidentSign"]').forEach(input=>input.checked=selectedSigns.has(input.value));document.getElementById('incidentPrepareEmail').checked=true;
   document.getElementById('incidentModal').dataset.clubId=clubId||selectedClub()?.id||'';document.getElementById('incidentModal').classList.remove('hidden');setTimeout(()=>document.getElementById('incidentPlace').focus(),0);
 }
 function handleIncidentAction(action,id,clubId=null){
@@ -1701,7 +1781,7 @@ function handleIncidentAction(action,id,clubId=null){
 }
 document.getElementById('newIncidentBtn').addEventListener('click',()=>openIncidentModal());
 document.getElementById('incidentForm').addEventListener('submit',event=>{
-  event.preventDefault();const club=db.clubs.find(item=>item.id===document.getElementById('incidentModal').dataset.clubId),id=document.getElementById('incidentId').value,existing=club?.incidents.find(x=>x.id===id),signTypes=[...document.querySelectorAll('input[name="incidentSign"]:checked')].map(input=>input.value),values={date:document.getElementById('incidentDate').value,type:document.getElementById('incidentType').value,signTypes,place:document.getElementById('incidentPlace').value.trim(),status:document.getElementById('incidentStatus').value,description:document.getElementById('incidentDescription').value.trim(),actions:document.getElementById('incidentActions').value.trim()};if(!club)return;if(!signTypes.length){alert('Seleccioná al menos un cartel o tótem para el reclamo.');return;}const isNew=!existing,prepareEmail=document.getElementById('incidentPrepareEmail').checked;if(existing)Object.assign(existing,values);else{club.incidents.push({id:uid('incident'),...values});addNotification('incident','Nuevo reclamo de cartelería',`${club.name} · ${values.place}`,club.id);}saveData();closeModal('incidentModal');renderAll();if(isNew&&prepareEmail)prepareIncidentEmail(club,values);
+  event.preventDefault();const club=db.clubs.find(item=>item.id===document.getElementById('incidentModal').dataset.clubId),id=document.getElementById('incidentId').value,existing=club?.incidents.find(x=>x.id===id),signTypes=[...document.querySelectorAll('input[name="incidentSign"]:checked')].map(input=>input.value),values={date:document.getElementById('incidentDate').value,type:document.getElementById('incidentType').value,signTypes,place:document.getElementById('incidentPlace').value.trim(),status:document.getElementById('incidentStatus').value,description:document.getElementById('incidentDescription').value.trim(),actions:document.getElementById('incidentActions').value.trim()};if(!club)return;if(!signTypes.length){alert('Seleccioná al menos un cartel o tótem para el reclamo.');return;}const isNew=!existing;if(existing)Object.assign(existing,values);else{club.incidents.push({id:uid('incident'),...values});addNotification('incident','Nuevo reclamo de cartelería',`${club.name} · ${values.place}`,club.id);}saveData();closeModal('incidentModal');renderAll();prepareIncidentEmail(club,values);
 });
 function prepareIncidentEmail(club,claim){
   const subject=`Nuevo reclamo de cartelería EDP — ${club.name}`,body=[`Se registró un nuevo reclamo de cartelería en el sistema EDP.`,``,`Club: ${club.name}`,`Fecha: ${formatDate(claim.date)}`,`Carteles / tótem: ${claim.signTypes.join(', ')}`,`Lugar: ${claim.place}`,`Estado: ${incidentStatus(claim.status)[0]}`,`Descripción: ${claim.description}`,`Medidas / seguimiento: ${claim.actions||'Sin información'}`,``,`Este mensaje fue preparado por la demostración local del Panel EDP.`].join('\n');

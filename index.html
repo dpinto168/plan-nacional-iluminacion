@@ -23,8 +23,8 @@
   for(let i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);
   const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
   let html=await new Response(stream).text();
-  const css='<link rel="stylesheet" href="club-detail.css?v=1">';
-  const js='<script src="club-detail.js?v=1"><\/script><script src="club-detail-fixes.js?v=1"><\/script>';
+  const css='<link rel="stylesheet" href="club-detail.css?v=2">';
+  const js='<script src="club-detail.js?v=2"><\/script><script src="club-detail-fixes-v2.js?v=2"><\/script>';
   if(/<\/head\s*>/i.test(html)) html=html.replace(/<\/head\s*>/i,css+'\n</head>'); else html=css+html;
   if(/<\/body\s*>/i.test(html)) html=html.replace(/<\/body\s*>/i,js+'\n</body>'); else html+=js;
   document.open();document.write(html);document.close();

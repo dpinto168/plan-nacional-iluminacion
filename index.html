@@ -22,7 +22,11 @@
   const bytes=new Uint8Array(bin.length);
   for(let i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);
   const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
-  const html=await new Response(stream).text();
+  let html=await new Response(stream).text();
+  const css='<link rel="stylesheet" href="club-detail.css?v=1">';
+  const js='<script src="club-detail.js?v=1"><\/script>';
+  if(/<\/head\s*>/i.test(html)) html=html.replace(/<\/head\s*>/i,css+'\n</head>'); else html=css+html;
+  if(/<\/body\s*>/i.test(html)) html=html.replace(/<\/body\s*>/i,js+'\n</body>'); else html+=js;
   document.open();document.write(html);document.close();
  }catch(e){
   document.getElementById('spinner').style.display='none';

@@ -689,7 +689,6 @@
               <div class="indicator-graphic-copy"><b id="indicatorMainRingTitle">Cumplimiento general</b><span id="indicatorMainRingText">Resultado calculado con la información registrada.</span></div>
             </div>
             <div class="indicator-row"><span class="ic mine"></span><span>Mi club o liga</span><b>95%</b></div>
-            <div class="indicator-row"><span class="ic dept"></span><span>Promedio de la liga</span><b>70%</b></div>
             <div class="indicator-row"><span class="ic nat"></span><span>Promedio nacional</span><b>82%</b></div>
           </div>
           <div class="card">
@@ -1484,6 +1483,9 @@ function renderRequirements(club){
   const girlsRows=manualArrayRows(m.girlsTeams,[
     {field:'category',render:(r,a)=>manualSelect(r.category,girlsCategoryOptions,a)},{field:'categoryDetail',render:(r,a)=>manualInput(r.categoryDetail,'text',a+` maxlength="100" placeholder="Especificar si eligió Otras" ${r.category==='Otras'?'':'disabled'}`)},{field:'status',render:(r,a)=>manualSelect(r.status,status3,a)},{field:'players',render:(r,a)=>manualInput(r.players,'number',a+' min="0"')}
   ],'girlsTeams');
+  const practiceAdmin=isSndAdmin();
+  const practiceHeaders=practiceAdmin?['Práctica cuidada','Estado','Acciones']:['Práctica cuidada','Estado'];
+  const practiceRows=m.practices.map(row=>`<tr><td><span class="manual-fixed-item">${escapeHtml(row.practice||'—')}</span></td><td>${manualSelect(row.status,status3,`data-manual-array="practices" data-row-id="${escapeHtml(row.id)}" data-field="status"`)}</td>${practiceAdmin?`<td class="row-actions">${manualRowButton('practices',row.id)}</td>`:''}</tr>`).join('');
   const inclusionRows=manualArrayRows(m.inclusion,[
     {field:'item',render:r=>`<span class="manual-fixed-item">${escapeHtml(r.item||'—')}</span>`},{field:'status',render:(r,a)=>manualSelect(r.status,inclusionStatus,a)},{field:'date',render:(r,a)=>manualInput(r.date,'date',a)}
   ],'inclusion',false,false);

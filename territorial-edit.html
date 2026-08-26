@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Maqueta · Edición territorial</title>
+<style>
+:root{--navy:#263B80;--teal:#2CA58D;--cyan:#4BC3D8;--bg:#F5F7FB;--card:#fff;--text:#1B2340;--muted:#6B7394;--border:#E3E7F0;--soft:#F8F9FC;--warn:#C48C18;--ok:#167B68}*{box-sizing:border-box}body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text)}button,input,select,textarea{font:inherit}.shell{min-height:100vh;display:grid;grid-template-columns:250px 1fr}.side{background:linear-gradient(180deg,#223774,#2A4289);color:#fff;padding:24px 18px;position:sticky;top:0;height:100vh}.brand{font-weight:800;font-size:18px;line-height:1.1}.brand small{display:block;margin-top:7px;font-size:10px;font-weight:600;opacity:.68;letter-spacing:.04em}.side hr{border:0;border-top:1px solid rgba(255,255,255,.13);margin:22px 0}.side h4{font-size:10px;text-transform:uppercase;letter-spacing:.1em;opacity:.6;margin:0 0 8px}.navbtn{width:100%;border:0;background:transparent;color:#fff;text-align:left;padding:11px 12px;border-radius:10px;cursor:pointer;margin:2px 0;font-size:12px;font-weight:700;opacity:.75}.navbtn.active,.navbtn:hover{background:rgba(255,255,255,.13);opacity:1}.navbtn span{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:7px;background:rgba(255,255,255,.12);margin-right:8px;font-size:10px}.main{min-width:0}.top{height:68px;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:10}.top strong{font-size:14px;color:var(--navy)}.mock{font-size:10px;font-weight:800;color:#895C00;background:#FFF3CF;border:1px solid #F1D77D;border-radius:999px;padding:6px 10px}.content{padding:24px 28px 90px;max-width:1440px;margin:0 auto}.headline{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;margin-bottom:18px}.headline h1{font-size:24px;color:var(--navy);margin:0 0 6px}.headline p{font-size:12px;color:var(--muted);margin:0}.clubbox{background:#fff;border:1px solid var(--border);border-radius:14px;padding:14px 16px;display:flex;gap:14px;align-items:center}.clubbox label{font-size:10px;font-weight:800;color:var(--muted);text-transform:uppercase}.clubbox select{border:1px solid var(--border);border-radius:10px;padding:9px 34px 9px 11px;color:var(--text);background:#fff;font-weight:700}.statusline{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}.pill{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:6px 9px;font-size:10px;font-weight:800;background:#EDF0F7;color:#59617E}.pill.auto{background:rgba(75,195,216,.12);color:#277E8F}.pill.draft{background:rgba(232,201,60,.17);color:#80670B}.pill.saved{background:rgba(44,165,141,.12);color:#167B68}.grid{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:18px}.formcol{min-width:0}.section{background:#fff;border:1px solid var(--border);border-radius:15px;margin-bottom:13px;overflow:hidden}.sectionhead{display:flex;gap:12px;align-items:flex-start;padding:16px 17px;border-bottom:1px solid var(--border)}.num{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:rgba(38,59,128,.08);color:var(--navy);font-size:12px;font-weight:800;flex:0 0 auto}.sectionhead h2{font-size:15px;margin:1px 0 3px;color:var(--navy)}.sectionhead p{font-size:10.5px;margin:0;color:var(--muted);line-height:1.4}.body{padding:16px 17px}.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px 14px}.field{min-width:0}.field.full{grid-column:1/-1}.field label{display:flex;justify-content:space-between;gap:8px;align-items:center;font-size:10px;font-weight:800;color:#505874;margin-bottom:6px}.source{font-size:8px;font-weight:800;color:#2C8696;background:rgba(75,195,216,.1);padding:3px 6px;border-radius:999px}.field input,.field select,.field textarea{width:100%;border:1px solid #DDE1EB;border-radius:9px;padding:10px 11px;background:#fff;color:var(--text);font-size:11px;outline:none}.field textarea{min-height:88px;resize:vertical;line-height:1.45}.field input:focus,.field select:focus,.field textarea:focus{border-color:#8D9DCE;box-shadow:0 0 0 3px rgba(38,59,128,.08)}.field input[readonly],.field textarea[readonly]{background:#F5F7FA;color:#7D849A}.help{font-size:8.5px;color:#969CAF;margin-top:5px;line-height:1.3}.row3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.mini{border:1px solid var(--border);border-radius:10px;padding:10px;background:#FBFCFE}.mini b{display:block;font-size:9px;color:var(--muted);margin-bottom:5px}.mini strong{font-size:16px;color:var(--navy)}.sourcebox{margin-top:12px;border-left:3px solid var(--cyan);background:rgba(75,195,216,.07);padding:9px 11px;border-radius:7px;font-size:9px;color:#5F6883}.sidecard{background:#fff;border:1px solid var(--border);border-radius:15px;padding:16px;position:sticky;top:87px}.sidecard h3{font-size:13px;color:var(--navy);margin:0 0 11px}.previewtitle{font-size:18px;font-weight:800;color:var(--navy);line-height:1.15}.previewsub{font-size:10px;color:var(--muted);margin-top:4px}.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:12px 0}.kpi{background:var(--soft);border-radius:9px;padding:9px}.kpi span{font-size:8px;color:var(--muted);display:block}.kpi b{font-size:15px;color:var(--text)}.checklist{display:grid;gap:7px;border-top:1px solid var(--border);padding-top:12px}.check{display:flex;justify-content:space-between;gap:8px;font-size:9.5px;color:#5E6680}.check b{font-size:9px;color:var(--ok)}.check b.pending{color:#A17311}.story{margin-top:12px;padding:11px;background:#F8F9FC;border-radius:10px}.story label{display:block;font-size:8px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:800}.story p{font-size:10px;line-height:1.45;margin:7px 0 0;color:#4F5874}.actions{position:fixed;bottom:0;left:250px;right:0;background:rgba(255,255,255,.96);backdrop-filter:blur(7px);border-top:1px solid var(--border);padding:12px 28px;display:flex;justify-content:space-between;align-items:center;z-index:20}.changes{font-size:10px;color:var(--muted)}.buttons{display:flex;gap:8px}.btn{border:1px solid var(--border);background:#fff;color:var(--navy);font-weight:800;font-size:11px;padding:10px 14px;border-radius:10px;cursor:pointer}.btn.primary{background:var(--navy);border-color:var(--navy);color:#fff}.btn.teal{background:var(--teal);border-color:var(--teal);color:#fff}.toast{position:fixed;right:24px;bottom:76px;background:#17234A;color:#fff;padding:11px 14px;border-radius:10px;font-size:10px;box-shadow:0 8px 24px rgba(0,0,0,.18);opacity:0;transform:translateY(8px);pointer-events:none;transition:.2s}.toast.show{opacity:1;transform:translateY(0)}
+@media(max-width:1050px){.shell{grid-template-columns:210px 1fr}.actions{left:210px}.grid{grid-template-columns:1fr}.sidecard{position:relative;top:auto}.side{padding-inline:14px}}
+@media(max-width:760px){.shell{display:block}.side{display:none}.actions{left:0;padding:10px 12px}.content{padding:18px 12px 90px}.top{padding:0 14px}.headline{display:block}.clubbox{margin-top:12px;display:block}.clubbox select{width:100%;margin-top:6px}.fields{grid-template-columns:1fr}.field.full{grid-column:auto}.row3{grid-template-columns:1fr}.buttons .btn:first-child{display:none}}
+</style>
+</head>
+<body>
+<div class="shell">
+<aside class="side">
+  <div class="brand">Espacio Deportivo<br>Protegido<small>PLAN NACIONAL DE ILUMINACIÓN</small></div>
+  <hr>
+  <h4>Ficha del club</h4>
+  <button class="navbtn active" data-go="general"><span>1</span>Datos generales</button>
+  <button class="navbtn" data-go="territorial"><span>2</span>Dimensión territorial</button>
+  <button class="navbtn" data-go="comunidad"><span>3</span>Dimensión humana</button>
+  <button class="navbtn" data-go="infra"><span>4</span>Infraestructura</button>
+  <button class="navbtn" data-go="impacto"><span>5</span>Impacto / línea de base</button>
+</aside>
+<main class="main">
+  <div class="top"><strong>Edición de ficha territorial</strong><span class="mock">MAQUETA FUNCIONAL · NO GUARDA EN BASE DE DATOS</span></div>
+  <div class="content">
+    <div class="headline">
+      <div><h1>Completar información del club</h1><p>La edición se realiza en una pantalla interna; la ficha pública solo visualiza los datos validados.</p></div>
+      <div class="clubbox"><label for="club">Club seleccionado</label><select id="club"><option>Boca Juniors</option><option>José Pedro Varela</option><option>Ciudad del Plata</option><option>Club de prueba</option></select></div>
+    </div>
+    <div class="statusline"><span class="pill auto">● Datos automáticos: Libro Maestro / INE / DGEIP</span><span class="pill draft" id="draftState">● Sin cambios</span></div>
+    <div class="grid">
+      <div class="formcol">
+        <section class="section" id="general"><div class="sectionhead"><span class="num">1</span><div><h2>Datos generales</h2><p>Información institucional y deportiva. Los campos automáticos quedan bloqueados para evitar inconsistencias.</p></div></div><div class="body"><div class="fields">
+          <div class="field"><label>Departamento <span class="source">Libro Maestro</span></label><input readonly value="Cerro Largo"></div>
+          <div class="field"><label>Localidad <span class="source">Libro Maestro</span></label><input readonly value="Melo"></div>
+          <div class="field"><label>Liga <span class="source">Libro Maestro</span></label><input readonly value="Liga de Fútbol Infantil de Melo"></div>
+          <div class="field"><label>Estado del proyecto <span class="source">Plan</span></label><input readonly value="Finalizada"></div>
+          <div class="field"><label>Niños <span class="source">Registro club</span></label><input readonly value="98"></div>
+          <div class="field"><label>Niñas <span class="source">Registro club</span></label><input readonly value="44"></div>
+        </div><div class="sourcebox">Estos campos se alimentan de las fuentes existentes. En producción solo podrían modificarlos perfiles administradores.</div></div></section>
+
+        <section class="section" id="territorial"><div class="sectionhead"><span class="num">2</span><div><h2>Dimensión territorial</h2><p>Datos contextuales automáticos. La persona que carga la ficha no necesita buscar ni ingresar estos valores.</p></div></div><div class="body"><div class="row3"><div class="mini"><b>Población localidad</b><strong>56.344</strong></div><div class="mini"><b>Matrícula Primaria</b><strong>8.214</strong></div><div class="mini"><b>Escuelas públicas</b><strong>63</strong></div></div><div class="fields" style="margin-top:13px">
+          <div class="field"><label>Falta de internet <span class="source">INE</span></label><input readonly value="12,4 %"></div>
+          <div class="field"><label>Sin saneamiento <span class="source">INE</span></label><input readonly value="18,1 %"></div>
+          <div class="field"><label>Hacinamiento <span class="source">INE</span></label><input readonly value="4,7 %"></div>
+          <div class="field"><label>Nivel de vulnerabilidad <span class="source">Cruce territorial</span></label><input readonly value="Medio"></div>
+        </div><div class="sourcebox">Cada dato debería mostrar fuente y fecha de actualización. En esta maqueta los valores son ilustrativos para ver la experiencia de edición.</div></div></section>
+
+        <section class="section" id="comunidad"><div class="sectionhead"><span class="num">3</span><div><h2>Dimensión comunitaria y humana</h2><p>Esta es la principal sección de relevamiento territorial. Puede ser completada por Cata o por un perfil de coordinación.</p></div></div><div class="body"><div class="fields">
+          <div class="field"><label>Año de fundación</label><input data-edit name="fundacion" placeholder="Ej. 1978"></div>
+          <div class="field"><label>Categorías / equipos</label><input data-edit name="categorias" placeholder="Ej. 7 categorías infantiles"></div>
+          <div class="field"><label>Días de actividad por semana</label><input data-edit name="dias" type="number" min="0" max="7" placeholder="Ej. 6"></div>
+          <div class="field"><label>Referentes / voluntarios activos</label><input data-edit name="voluntarios" type="number" min="0" placeholder="Ej. 18"></div>
+          <div class="field full"><label>Vínculos con instituciones del territorio</label><input data-edit name="vinculos" placeholder="Escuela, CAIF, municipio, organizaciones barriales..."></div>
+          <div class="field full"><label>Otras actividades comunitarias</label><textarea data-edit name="actividades" placeholder="Ej. meriendas, reuniones barriales, actividades culturales, apoyo escolar..."></textarea></div>
+          <div class="field full"><label>¿Qué representa el club para esta comunidad?</label><textarea data-edit name="significado" placeholder="Descripción breve, concreta y humana del rol que cumple el club en el territorio."></textarea><div class="help">Este campo puede alimentar luego piezas de comunicación e inauguraciones.</div></div>
+          <div class="field full"><label>Historia, referente o rasgo significativo</label><textarea data-edit name="historia" placeholder="Una historia, persona o característica que ayude a contar por qué este club importa."></textarea></div>
+        </div></div></section>
+
+        <section class="section" id="infra"><div class="sectionhead"><span class="num">4</span><div><h2>Infraestructura y condiciones</h2><p>Condiciones de partida del club y elementos relevantes para el acompañamiento posterior.</p></div></div><div class="body"><div class="fields">
+          <div class="field"><label>Energía eléctrica</label><select data-edit name="energia"><option value="">Seleccionar</option><option>Sí</option><option>No</option><option>Parcial / precaria</option></select></div>
+          <div class="field"><label>Baños</label><select data-edit name="banos"><option value="">Seleccionar</option><option>Buenos</option><option>Regulares</option><option>Malos</option><option>No dispone</option></select></div>
+          <div class="field"><label>Fuente de agua</label><select data-edit name="agua"><option value="">Seleccionar</option><option>OSE</option><option>Pozo</option><option>Otra</option><option>No dispone</option></select></div>
+          <div class="field"><label>Efluentes / saneamiento</label><select data-edit name="saneamiento"><option value="">Seleccionar</option><option>Red de saneamiento</option><option>Pozo negro</option><option>Otra solución</option><option>Sin solución</option></select></div>
+          <div class="field full"><label>Situación del predio</label><input data-edit name="predio" placeholder="Propio, comodato, cesión, situación a regularizar..."></div>
+          <div class="field full"><label>Observaciones de infraestructura</label><textarea data-edit name="obsinfra" placeholder="Información complementaria relevante."></textarea></div>
+        </div></div></section>
+
+        <section class="section" id="impacto"><div class="sectionhead"><span class="num">5</span><div><h2>Impacto / línea de base</h2><p>Permite comparar la situación previa con una medición posterior para evaluar qué cambió luego de la intervención.</p></div></div><div class="body"><div class="fields">
+          <div class="field"><label>Horas semanales de uso · Antes</label><input data-edit name="horasAntes" type="number" min="0" placeholder="Ej. 22"></div>
+          <div class="field"><label>Horas semanales de uso · Después</label><input data-edit name="horasDespues" type="number" min="0" placeholder="Se completa posteriormente"></div>
+          <div class="field"><label>Horario máximo · Antes</label><input data-edit name="horarioAntes" type="time"></div>
+          <div class="field"><label>Horario máximo · Después</label><input data-edit name="horarioDespues" type="time"></div>
+          <div class="field full"><label>Actividades limitadas o suspendidas antes de la intervención</label><textarea data-edit name="limitaciones" placeholder="Ej. entrenamientos que debían terminar con luz natural, categorías que compartían horario..."></textarea></div>
+          <div class="field full"><label>Nuevas actividades / turnos habilitados después</label><textarea data-edit name="nuevas" placeholder="Se completa en seguimiento posterior."></textarea></div>
+        </div></div></section>
+      </div>
+
+      <aside class="sidecard">
+        <h3>Vista previa de la ficha</h3><div class="previewtitle" id="prevClub">Boca Juniors</div><div class="previewsub">Melo · Cerro Largo</div>
+        <div class="kpis"><div class="kpi"><span>Niños</span><b>98</b></div><div class="kpi"><span>Niñas</span><b>44</b></div><div class="kpi"><span>Total</span><b>142</b></div></div>
+        <div class="checklist"><div class="check"><span>Datos generales</span><b>Automático</b></div><div class="check"><span>Dimensión territorial</span><b>Automático</b></div><div class="check"><span>Dimensión humana</span><b class="pending" id="humanCheck">Pendiente</b></div><div class="check"><span>Infraestructura</span><b class="pending" id="infraCheck">Pendiente</b></div><div class="check"><span>Línea de base</span><b class="pending" id="impactCheck">Pendiente</b></div></div>
+        <div class="story"><label>Qué representa para la comunidad</label><p id="storyPreview">Cuando se complete el relevamiento, esta descripción aparecerá en la ficha pública.</p></div>
+      </aside>
+    </div>
+  </div>
+</main>
+</div>
+<div class="actions"><div class="changes" id="changes">No hay cambios sin guardar.</div><div class="buttons"><button class="btn" id="discard">Descartar</button><button class="btn teal" id="previewBtn">Actualizar vista previa</button><button class="btn primary" id="save">Guardar borrador</button></div></div>
+<div class="toast" id="toast"></div>
+<script>
+(()=>{
+ const STORAGE='pni_territorial_edit_mockup_v1';
+ const inputs=[...document.querySelectorAll('[data-edit]')], draft=document.getElementById('draftState'), changes=document.getElementById('changes'), toast=document.getElementById('toast');
+ let dirty=false;
+ const key=()=>STORAGE+'_'+document.getElementById('club').value;
+ const notify=t=>{toast.textContent=t;toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),1800)};
+ const setDirty=v=>{dirty=v;draft.textContent=v?'● Cambios sin guardar':'● Borrador al día';draft.className='pill '+(v?'draft':'saved');changes.textContent=v?'Hay cambios sin guardar.':'No hay cambios sin guardar.'};
+ const data=()=>Object.fromEntries(inputs.map(i=>[i.name,i.value]));
+ const load=()=>{const raw=localStorage.getItem(key());const d=raw?JSON.parse(raw):{};inputs.forEach(i=>i.value=d[i.name]||'');setDirty(false);preview();};
+ function preview(){
+   document.getElementById('prevClub').textContent=document.getElementById('club').value;
+   const d=data();
+   document.getElementById('storyPreview').textContent=d.significado||'Cuando se complete el relevamiento, esta descripción aparecerá en la ficha pública.';
+   const mark=(id,ok)=>{const e=document.getElementById(id);e.textContent=ok?'Completo':'Pendiente';e.className=ok?'':'pending'};
+   mark('humanCheck',!!(d.fundacion||d.categorias||d.significado||d.historia));mark('infraCheck',!!(d.energia||d.banos||d.agua||d.saneamiento));mark('impactCheck',!!(d.horasAntes||d.horarioAntes||d.limitaciones));
+ }
+ inputs.forEach(i=>i.addEventListener('input',()=>{setDirty(true);if(i.name==='significado')preview()}));
+ document.getElementById('save').onclick=()=>{localStorage.setItem(key(),JSON.stringify(data()));setDirty(false);preview();notify('Borrador guardado en este navegador')};
+ document.getElementById('discard').onclick=()=>{if(dirty&&!confirm('¿Descartar los cambios no guardados?'))return;load();notify('Cambios descartados')};
+ document.getElementById('previewBtn').onclick=()=>{preview();notify('Vista previa actualizada')};
+ document.getElementById('club').onchange=()=>{load()};
+ document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{document.querySelectorAll('.navbtn').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById(b.dataset.go).scrollIntoView({behavior:'smooth',block:'start'})});
+ window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.returnValue=''}});
+ load();
+})();
+</script>
+</body>
+</html>

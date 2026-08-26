@@ -1,0 +1,64 @@
+name: Fix public EDP runtime
+
+on:
+  push:
+    branches: [feature/public-edp-content-update]
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Patch runtime blocks
+        run: |
+          python3 <<'PY'
+          from pathlib import Path
+          import re
+          p=Path('edp/index.html');h=p.read_text(encoding='utf-8')
+          h=h.replace("complete=!!row.name&&!!row.category&&!!row.date&&formation==='yes'", "complete=!!row.name&&!!row.category&&!!row.expiry&&formation==='yes'")
+
+          # Public Indicators: two comparison rows only.
+          before, rest = h.split('function renderIndicators(club){',1)
+          block, after = rest.split('  const primaryValue=',1)
+          block,n=re.subn(r"  if\(global\)\{.*?\n  \}", "  if(global){labels[0].textContent='Todos los clubes y ligas';labels[1].textContent='Promedio nacional';values[0].textContent=national+'%';values[1].textContent=national+'%';}\n  else{const pct=compliance(club);labels[0].textContent='Mi club o liga';labels[1].textContent='Promedio nacional';values[0].textContent=pct+'%';values[1].textContent=national+'%';}", block,count=1,flags=re.S)
+          if n!=1: raise SystemExit(f'renderIndicators block not found: {n}')
+          h=before+'function renderIndicators(club){'+block+'  const primaryValue='+after
+
+          # Home dashboard Indicators card: also only two comparison rows.
+          before, rest = h.split('  const nationalPct=',1)
+          block, after = rest.split('const homeCategoryDefinitions=',1)
+          new="""  const nationalPct=Math.round(db.clubs.reduce((sum,c)=>sum+compliance(c),0)/(db.clubs.length||1)),indicatorLabels=cards[4].querySelectorAll('.indicator-row span:nth-child(2)'),indicatorRows=cards[4].querySelectorAll('.indicator-row b');if(global){indicatorLabels[0].textContent='Todos los clubes y ligas';indicatorLabels[1].textContent='Promedio nacional';indicatorRows[0].textContent=nationalPct+'%';indicatorRows[1].textContent=nationalPct+'%';}else{indicatorLabels[0].textContent='Mi club o liga';indicatorLabels[1].textContent='Promedio nacional';indicatorRows[0].textContent=pct+'%';indicatorRows[1].textContent=nationalPct+'%';}const homeCategoryDefinitions="""
+          h=before+'  const nationalPct='+block.split('const nationalPct=',1)[1].split('const homeCategoryDefinitions=',1)[0]+new[len("  const nationalPct=".split('const nationalPct=',1)[0]):] if False else h
+          # Replace the whole block more directly.
+          before, rest = h.split('  const nationalPct=',1)
+          block, after = rest.split('const homeCategoryDefinitions=',1)
+          h=before+new+after
+
+          p.write_text(h,encoding='utf-8')
+          PY
+      - name: Validate
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          h=Path('edp/index.html').read_text(encoding='utf-8')
+          m=re.search(r'<script>(.*?)</script>',h,re.S)
+          Path('/tmp/edp.js').write_text(m.group(1),encoding='utf-8')
+          if 'labels[2]' in h[h.find('function renderIndicators'):h.find('function indicatorCollection')]: raise SystemExit('renderIndicators still expects third row')
+          if 'indicatorLabels[2]' in h[h.find('function renderDashboard'):h.find('function manualOptions')]: raise SystemExit('dashboard still expects third row')
+          if 'Promedio de la liga' in h[h.find('id="view-indicadores"'):h.find('id="view-mapa"')]: raise SystemExit('league comparison remains in Indicators')
+          if 'row.date&&formation' in h: raise SystemExit('formation still uses training date')
+          print('markers OK')
+          PY
+          node --check /tmp/edp.js
+      - name: Commit and clean workflow
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add edp/index.html
+          git rm .github/workflows/public-edp-runtime-fix.yml
+          git commit -m "fix: finalize public EDP indicator runtime"
+          git push origin HEAD:${GITHUB_REF_NAME}

@@ -835,7 +835,7 @@
       <div class="form-grid">
         <div class="field"><label for="trainingType">Nombre de la capacitación *</label><input id="trainingType" required maxlength="140"></div>
         <div class="field"><label for="trainingDate">Fecha *</label><input id="trainingDate" type="date" required></div>
-        <div class="field"><label for="trainingParticipants">Participantes (N.º) *</label><input id="trainingParticipants" type="number" min="0" required></div>
+        <div class="field" id="trainingParticipantsField"><label for="trainingParticipants">Participantes (N.º) *</label><input id="trainingParticipants" type="number" min="0" required></div>
         <div class="field" style="grid-column:1/-1;"><label for="trainingTopics">Temas tratados *</label><textarea id="trainingTopics" required maxlength="700"></textarea></div>
       </div>
       <div class="form-actions"><button class="btn-primary btn-inline" type="submit">Guardar capacitación</button><button class="btn-secondary" type="button" data-close-modal="trainingModal">Cancelar</button></div>
@@ -1521,7 +1521,7 @@ function renderRequirements(club){
   container.querySelectorAll('[data-manual-scalar],[data-manual-array]').forEach(control=>control.addEventListener('change',()=>updateManualField(club,control)));
   container.querySelectorAll('[data-manual-array="girlsTeams"][data-field="category"]').forEach(control=>control.addEventListener('change',()=>{const detail=control.closest('tr')?.querySelector('[data-field="categoryDetail"]');if(detail)detail.disabled=control.value!=='Otras';}));
   container.querySelector('[data-followup-edit]')?.addEventListener('click',()=>{followupEditing=!followupEditing;const view=captureManualView(container);renderRequirements(club);restoreManualView(view);});
-  container.querySelector('[data-add-snd-training]')?.addEventListener('click',()=>openTrainingModal());
+  container.querySelector('[data-add-snd-training]')?.addEventListener('click',()=>openTrainingModal(null,true));
   container.querySelectorAll('.manual-info').forEach(info=>{
     const toggleInfo=event=>{
       event.preventDefault();event.stopPropagation();
@@ -1720,10 +1720,11 @@ document.getElementById('documentForm').addEventListener('submit',async event=>{
 });
 
 /* ---------- Capacitación SND ---------- */
-function openTrainingModal(item=null){
+function openTrainingModal(item=null,fromStandards=false){
   if(!isSndAdmin())return;
   document.getElementById('trainingForm').reset();document.getElementById('trainingModalTitle').textContent=item?'Editar capacitación':'Nueva capacitación';
   document.getElementById('trainingId').value=item?.id||'';document.getElementById('trainingType').value=item?.type||'';document.getElementById('trainingDate').value=item?.date||new Date().toISOString().slice(0,10);document.getElementById('trainingParticipants').value=item?.participants??'';document.getElementById('trainingTopics').value=item?.topics||'';
+  const participantsField=document.getElementById('trainingParticipantsField'),participantsInput=document.getElementById('trainingParticipants');participantsField.classList.toggle('hidden',fromStandards);participantsInput.required=!fromStandards;
   document.getElementById('trainingModal').classList.remove('hidden');setTimeout(()=>document.getElementById('trainingType').focus(),0);
 }
 function handleTrainingAction(action,id){

@@ -1126,6 +1126,15 @@ function defaultData(){
   };
 }
 
+const MANAGED_PRACTICE_TEXTS={
+  'practice-5':'El club ha instalado como práctica que los adultos no quedan a solas con un niño sin supervisión visible.',
+  'practice-6':'El club ha instalado como práctica que niños y adultos utilizan vestuarios por separado.'
+};
+function normalizePracticeTexts(tracking){
+  if(!tracking||!Array.isArray(tracking.practices))return;
+  tracking.practices.forEach(item=>{if(MANAGED_PRACTICE_TEXTS[item.id])item.practice=MANAGED_PRACTICE_TEXTS[item.id];});
+}
+
 let db = loadData();
 let currentSession = loadSession();
 
@@ -1137,7 +1146,7 @@ function loadData(){
       saved.notifications??=[];
       saved.sndTrainings??=[];
       saved.mapSourceUrl??=DEFAULT_MAP_URL;
-      saved.clubs.forEach((club,index)=>{club.documents??=[];club.trainings??=[];club.calendar??=[];club.incidents??=[];club.customIndicators??=[];club.manualTracking??=makeManualTracking(index);club.incidents.forEach(item=>{item.signTypes??=[];});club.requirements?.forEach(requirement=>{requirement.description??='';requirement.mandatory??=true;requirement.weight??=1;requirement.evidence??=structuredClone(requirement.id==='req1'?(requirementTemplate.find(item=>item.id==='req1')?.evidence||defaultRequirementEvidence(requirement.nombre)):defaultRequirementEvidence(requirement.nombre));});});
+      saved.clubs.forEach((club,index)=>{club.documents??=[];club.trainings??=[];club.calendar??=[];club.incidents??=[];club.customIndicators??=[];club.manualTracking??=makeManualTracking(index);normalizePracticeTexts(club.manualTracking);club.incidents.forEach(item=>{item.signTypes??=[];});club.requirements?.forEach(requirement=>{requirement.description??='';requirement.mandatory??=true;requirement.weight??=1;requirement.evidence??=structuredClone(requirement.id==='req1'?(requirementTemplate.find(item=>item.id==='req1')?.evidence||defaultRequirementEvidence(requirement.nombre)):defaultRequirementEvidence(requirement.nombre));});});
       saved.users.forEach(user=>{user.active??=true;user.lastAccess??='';});
       return saved;
     }
@@ -1872,7 +1881,7 @@ document.getElementById('exportBtn').addEventListener('click',()=>{
 });
 document.getElementById('importInput').addEventListener('change',async event=>{
   const file=event.target.files[0];if(!file)return;
-  try{const imported=JSON.parse(await file.text());if(!Array.isArray(imported.clubs)||!Array.isArray(imported.users))throw new Error('Formato inválido');db=imported;if(!db.selectedClubId||(db.selectedClubId!==ALL_CLUBS&&!db.clubs.some(c=>c.id===db.selectedClubId)))db.selectedClubId=db.clubs[0]?.id;db.globalIndicators??=[];db.notifications??=[];db.mapSourceUrl??='';db.clubs.forEach((club,index)=>{club.customIndicators??=[];club.manualTracking??=makeManualTracking(index);club.incidents??=[];club.incidents.forEach(item=>item.signTypes??=[]);});saveData();populateClubSelector();renderAll();showNotice('Respaldo importado correctamente.');}
+  try{const imported=JSON.parse(await file.text());if(!Array.isArray(imported.clubs)||!Array.isArray(imported.users))throw new Error('Formato inválido');db=imported;if(!db.selectedClubId||(db.selectedClubId!==ALL_CLUBS&&!db.clubs.some(c=>c.id===db.selectedClubId)))db.selectedClubId=db.clubs[0]?.id;db.globalIndicators??=[];db.notifications??=[];db.mapSourceUrl??='';db.clubs.forEach((club,index)=>{club.customIndicators??=[];club.manualTracking??=makeManualTracking(index);normalizePracticeTexts(club.manualTracking);club.incidents??=[];club.incidents.forEach(item=>item.signTypes??=[]);});saveData();populateClubSelector();renderAll();showNotice('Respaldo importado correctamente.');}
   catch(error){showNotice('No se pudo importar: el archivo no tiene un respaldo EDP válido.','warn');}
   event.target.value='';
 });
